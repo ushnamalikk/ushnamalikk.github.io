@@ -136,18 +136,16 @@ a:hover {
     fill: #ffffff; /* Change icon color to white when clicked */
 }
 
+/* Alternative Styling with fill property applied directly */
 .icon {
-    fill: #007bff; /* Default blue color */
-    transition: fill 0.2s ease-in-out, transform 0.2s ease-in-out;
+    fill: #007bff; /* Blue color for default state */
+    transition: fill 0.2s ease, transform 0.2s;
 }
 
-.social-icons a:hover .icon {
-    fill: #ffffff; 
-    transform: scale(1.1);
+.icon:hover {
+    transform: scale(1.1); /* Scale effect on hover */
 }
 
 .icon:active {
     fill: #ffffff; /* White on click */
 }
-
-
