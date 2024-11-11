@@ -156,7 +156,7 @@ a:hover {
 }
 
 .position h3 {
-    font-size: 16px; /* Larger font for position titles */
+    font-size: 17px; /* Larger font for position titles */
     color: #007bff;
     margin-bottom: 12px;
 }
@@ -169,7 +169,7 @@ a:hover {
 }
 
 .position p {
-    font-size: 14px; /* Standard font size for descriptions */
+    font-size: 16px; 
     margin: 8px 0;
 }
 
