@@ -108,5 +108,6 @@ a:hover {
 
 .phd-highlight {
     font-weight: bold;
+    color: #b3b3b3; 
+    margin-top: 10px; 
 }
-
