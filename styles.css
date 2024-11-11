@@ -122,8 +122,8 @@ a:hover {
 .social-icons a img {
     width: 50px;
     height: 50px;
-    /* Use filter to apply a static blue color that resembles #007bff */
-    filter: invert(43%) sepia(100%) saturate(388%) hue-rotate(185deg) brightness(95%) contrast(87%);
+    /* Adjust filter to make color richer and closer to #007bff */
+    filter: invert(43%) sepia(100%) saturate(500%) hue-rotate(185deg) brightness(90%) contrast(120%);
     transition: transform 0.2s ease-in-out; /* Smooth scaling effect */
 }
 
@@ -134,4 +134,3 @@ a:hover {
 .social-icons a:active img {
     transform: scale(1.1); /* Keep transform effect on click, without changing color */
 }
-
