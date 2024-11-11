@@ -1,0 +1,103 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  background-color: #1c1c1c;
+  color: #f5f5f5;
+  line-height: 1.6;
+}
+
+/* Sidebar Header */
+header {
+  width: 250px;
+  padding: 20px;
+  background-color: #2a2a2a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 24px;
+  color: #ffcc00;
+  margin-bottom: 20px;
+}
+
+.profile img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile p {
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.social-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.social-links a img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+/* Main Content */
+main {
+  flex: 1;
+  padding: 40px;
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Section Styling */
+section {
+  margin-bottom: 30px;
+}
+
+section h2 {
+  font-size: 22px;
+  color: #ffcc00;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #555;
+  padding-bottom: 5px;
+}
+
+.welcome blockquote {
+  font-style: italic;
+  color: #bbb;
+  margin-bottom: 15px;
+}
+
+.publications ul, .talks ul, .awards ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.publications li, .talks li, .awards li {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Link Styling */
+a {
+  color: #ffcc00;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
