@@ -136,3 +136,42 @@ a:hover {
 .social-icons a:active img {
     transform: scale(1.1); /* Keep transform effect on click, without changing color */
 }
+
+
+.teaching {
+    margin-top: 30px;
+    line-height: 1.6; /* Improve readability */
+}
+
+.teaching h2 {
+    font-size: 24px; /* Larger font for the main heading */
+    color: #ffcc00; /* Highlight color */
+    margin-bottom: 15px;
+    border-bottom: 1px solid #555;
+    padding-bottom: 5px;
+}
+
+.position {
+    margin-bottom: 25px; /* Space between teaching positions */
+}
+
+.position h3 {
+    font-size: 20px; /* Larger font for position titles */
+    color: #007bff;
+    margin-bottom: 8px;
+}
+
+.position ul {
+    list-style-type: disc;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
+
+.position p {
+    font-size: 16px; /* Standard font size for descriptions */
+    margin: 8px 0;
+}
+
+.position strong {
+    font-weight: bold;
+}
