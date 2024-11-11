@@ -29,12 +29,17 @@ header h1 {
   margin-bottom: 20px;
 }
 
+.profile {
+    display: flex;
+    justify-content: center; 
+}
+
 .profile img {
-  width: 150px;
-  height: 250px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-  object-fit: cover;
+    width: 150px;
+    height: 250px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
 }
 
 .profile p {
