@@ -111,3 +111,21 @@ a:hover {
     color: #bbb; 
     margin-top: 10px; 
 }
+
+.social-icons {
+    display: flex;
+    justify-content: center; /* Center the icons horizontally */
+    gap: 15px; /* Space between icons */
+    margin-top: 20px; /* Space above the icons */
+}
+
+.social-icons img {
+    width: 50px; /* Adjust size of icons */
+    height: 50px;
+    transition: transform 0.2s ease-in-out; /* Smooth scaling effect */
+}
+
+.social-icons img:hover {
+    transform: scale(1.1); /* Slightly enlarge icon on hover */
+}
+
