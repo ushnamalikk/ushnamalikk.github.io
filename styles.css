@@ -106,10 +106,7 @@ a:hover {
     color: #007bff; /* A shade of blue; you can adjust as needed */
 }
 
-.phd-opportunity {
-    margin-top: 15px;
-    font-size: 1.1em;
-    color: #ffcc00; /* Customize color to make it stand out */
-    text-align: center;
+.phd-highlight {
+    font-weight: bold;
 }
 
