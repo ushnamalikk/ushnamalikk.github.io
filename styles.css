@@ -119,13 +119,34 @@ a:hover {
     margin-top: 20px; /* Space above the icons */
 }
 
-.social-icons img {
-    width: 50px; /* Adjust size of icons */
+.social-icons a img {
+    width: 50px;
     height: 50px;
-    transition: transform 0.2s ease-in-out; /* Smooth scaling effect */
+    fill: #007bff; /* Default blue color for the SVG icons */
+    transition: fill 0.2s ease-in-out, transform 0.2s ease-in-out; /* Smooth color and scale transition */
+    background-color: transparent; /* No background */
 }
 
-.social-icons img:hover {
+.social-icons a:hover img {
     transform: scale(1.1); /* Slightly enlarge icon on hover */
 }
+
+.social-icons a:active img {
+    fill: #ffffff; /* Change icon color to white when clicked */
+}
+
+/* Alternative Styling with fill property applied directly */
+.icon {
+    fill: #007bff; /* Blue color for default state */
+    transition: fill 0.2s ease, transform 0.2s;
+}
+
+.icon:hover {
+    transform: scale(1.1); /* Scale effect on hover */
+}
+
+.icon:active {
+    fill: #ffffff; /* White on click */
+}
+
 
