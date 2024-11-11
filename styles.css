@@ -122,8 +122,9 @@ a:hover {
 .social-icons a img {
     width: 50px;
     height: 50px;
-    /* Adjust filter to make color richer and closer to #007bff */
-    filter: invert(43%) sepia(100%) saturate(500%) hue-rotate(185deg) brightness(90%) contrast(120%);
+    background-color: #007bff; /* Exact blue color */
+    border-radius: 0; /* Ensures no rounding, keeping icons in their original shape */
+    padding: 8px; /* Optional padding to give icons some spacing if needed */
     transition: transform 0.2s ease-in-out; /* Smooth scaling effect */
 }
 
