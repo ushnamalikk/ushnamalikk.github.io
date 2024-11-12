@@ -202,4 +202,21 @@ a:hover {
     margin: 0;
 }
 
+/* Container for the profile image */
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px; /* Adds space below the image container */
+}
+
+/* Styling for the profile image */
+.profile-image {
+  width: 200px;            /* Sets the width of the image */
+  height: 200px;           /* Sets the height of the image */
+  border-radius: 50%;      /* Makes the image circular */
+  object-fit: cover;       /* Ensures the image covers the area without distortion */
+  border: 2px solid #555;  /* Optional border around the image */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for a subtle lift effect */
+}
+
 
