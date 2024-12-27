@@ -119,7 +119,7 @@ a:hover {
 
 .phd-highlight {
     font-weight: bold;
-    color: #f0f0f0; /* Brighter color for visibility */
+    color: #bbb;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Outline effect */
 }
 
