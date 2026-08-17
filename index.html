@@ -1,127 +1,563 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ushna Malik - Portfolio</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
- <!--  -->
-  <header>
-    <h1>Ushna Malik</h1>
-    <div class="profile">
-      <img src="IMG_2741.jpg" alt="Profile Picture">
-      <p>Location: LUMS, Lahore, Pakistan</p>
-      <div class="social-icons">
-    <a href="https://www.linkedin.com/in/ushnamalik" target="_blank">
-        <img src="linkedin.svg" alt="LinkedIn">
-    </a>
-    <a href="https://drive.google.com/file/d/1G0GyDWgOTPFS6bpnK9KrQy_jNTFtx7FG/view?usp=sharing" target="_blank">
-        <img src="resume.svg" alt="Resume">
-    </a>
-    <a href="mailto:ushnam18@gmail.com" target="_blank">
-            <img src="email.svg" alt="Email">
-    </a>
-</div>
+<title>Ushna Malik — Holo Deck</title>
+<style>
+/* ============================================================
+   HOLO DECK — dusty rose, not hot magenta.
+   Rarity tiers are her own evidence grades: established,
+   suggestive, theorized.
+   ============================================================ */
+:root{
+  --bg:#FAF0F2;--bg-2:#F3E6EA;--card:#FFFAFB;--card-2:#F7EDF0;
+  --ink:#33222A;--dim:#6E5560;--faint:#A2909A;
+  --line:rgba(51,34,42,.13);
+  --rose:#C97B94;--rose-deep:#A05B76;--rose-soft:#EFD6DE;--rose-wash:rgba(201,123,148,.13);
+  --lilac:#A895C4;--sand:#C6A47C;
+  --grain-blend:multiply;--grain-op:.05;
+  --f-d:"Archivo Black","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --f-b:"Avenir Next","Helvetica Neue",system-ui,sans-serif;
+  --f-m:"SF Mono",SFMono-Regular,Menlo,ui-monospace,monospace;
+  --pad:clamp(20px,5vw,60px);
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1E1418;--bg-2:#261A20;--card:#2B1E24;--card-2:#33232A;
+  --ink:#F6E9ED;--dim:#C4AAB4;--faint:#8B747E;
+  --line:rgba(246,233,237,.15);
+  --rose:#E0A2B6;--rose-deep:#C47F97;--rose-soft:#4A2F39;--rose-wash:rgba(224,162,182,.14);
+  --lilac:#BFAEDA;--sand:#D9BA94;
+  --grain-blend:overlay;--grain-op:.07;}}
+:root[data-theme="dark"]{
+  --bg:#1E1418;--bg-2:#261A20;--card:#2B1E24;--card-2:#33232A;
+  --ink:#F6E9ED;--dim:#C4AAB4;--faint:#8B747E;
+  --line:rgba(246,233,237,.15);
+  --rose:#E0A2B6;--rose-deep:#C47F97;--rose-soft:#4A2F39;--rose-wash:rgba(224,162,182,.14);
+  --lilac:#BFAEDA;--sand:#D9BA94;
+  --grain-blend:overlay;--grain-op:.07;}
 
-       <div class="fun-fact">
-    <p>Fun Fact: This picture was taken on my last day of Stanford's summer semester 😢, the same day I met LinkedIn's cofounder in one of my classes 🌟.</p>
-</div>
-      
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg)}
+body{font-family:var(--f-b);color:var(--ink);font-size:16.5px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:3px}
+
+.lbl{font-family:var(--f-m);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--rose-deep)}
+.lbl-d{font-family:var(--f-m);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+.mono{font-family:var(--f-m);font-size:.85em}
+.dim{color:var(--dim)}
+h1,h2,h3,h4{font-family:var(--f-d);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.92}
+p{max-width:66ch}
+
+/* texture layers, technique borrowed from the reference */
+.grain{position:absolute;inset:0;pointer-events:none;z-index:6;opacity:var(--grain-op);
+  mix-blend-mode:var(--grain-blend);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.grid{position:absolute;inset:0;pointer-events:none;z-index:2;
+  background-image:linear-gradient(var(--rose-wash) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--rose-wash) 1px,transparent 1px);
+  background-size:64px 64px,64px 64px;
+  -webkit-mask-image:radial-gradient(92% 82% at 50% 40%,#000 30%,transparent 82%);
+  mask-image:radial-gradient(92% 82% at 50% 40%,#000 30%,transparent 82%)}
+
+/* ---------------- HERO ---------------- */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+nav{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;
+  gap:1rem;padding:1.3rem var(--pad) 0;flex-wrap:wrap}
+nav ul{display:flex;gap:clamp(.85rem,2.2vw,1.9rem);list-style:none}
+nav a{font-family:var(--f-m);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);transition:color .2s}
+nav a:hover{color:var(--rose-deep)}
+.pill{border:1px solid var(--rose);color:var(--rose-deep);border-radius:999px;padding:.5rem 1.05rem;
+  font-family:var(--f-m);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;transition:background .2s}
+.pill:hover{background:var(--rose-wash)}
+
+.hero-in{position:relative;z-index:10;flex:1;display:grid;grid-template-columns:1fr auto;gap:2rem;
+  padding:clamp(1.4rem,3.5vw,2.6rem) var(--pad) clamp(1.4rem,3vw,2.2rem);align-items:stretch}
+@media(max-width:900px){.hero-in{grid-template-columns:1fr}}
+.hero-l{display:flex;flex-direction:column}
+.meta{display:flex;gap:1.4rem;flex-wrap:wrap;margin-bottom:clamp(1.2rem,3.5vw,2.6rem)}
+.eyebrow{display:flex;align-items:center;gap:.65rem;margin-bottom:.5rem}
+.eyebrow::before{content:"";width:32px;height:1px;background:var(--rose)}
+h1.nm{font-size:clamp(3rem,13vw,9.5rem);line-height:.83;letter-spacing:-.04em}
+h1.nm .s{display:block;color:var(--ink)}
+h1.nm .h{display:block;color:transparent;-webkit-text-stroke:2px var(--rose)}
+@media(min-width:768px){h1.nm .h{-webkit-text-stroke-width:3px}}
+.hero-b{margin-top:auto;padding-top:1.8rem}
+.hero-b p{max-width:33ch;color:var(--dim);font-size:clamp(.9rem,1.6vw,1.05rem);line-height:1.5}
+.cta{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1.1rem}
+.btn{border-radius:999px;padding:.72rem 1.5rem;font-family:var(--f-m);font-size:10px;
+  letter-spacing:.18em;text-transform:uppercase;display:inline-block;transition:transform .2s,background .2s,border-color .2s}
+.btn-s{background:var(--rose);color:#fff}
+.btn-s:hover{transform:translateY(-2px);background:var(--rose-deep)}
+.btn-g{border:1px solid var(--line);color:var(--dim)}
+.btn-g:hover{border-color:var(--rose);color:var(--rose-deep)}
+.socials{display:flex;gap:1.1rem;flex-wrap:wrap;margin-top:1.1rem}
+.socials a{font-family:var(--f-m);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.socials a:hover{color:var(--rose-deep);border-color:var(--rose)}
+
+.hero-r{display:flex;align-items:flex-end;justify-content:center;position:relative}
+#av{width:clamp(230px,30vw,370px);height:auto;display:block}
+@media(max-width:900px){.hero-r{order:-1;justify-content:flex-end}#av{width:clamp(180px,42vw,260px)}}
+
+.bracket{position:absolute;width:24px;height:24px;z-index:8;pointer-events:none;opacity:.65}
+.bracket::before{content:"";position:absolute;inset:0;background:var(--rose);height:1px}
+.bracket::after{content:"";position:absolute;inset:0;background:var(--rose);width:1px}
+.b-tr{top:74px;right:calc(var(--pad) - 6px)}.b-tr::before{top:0}.b-tr::after{right:0}
+.b-bl{bottom:24px;left:calc(var(--pad) - 6px)}.b-bl::before{bottom:0}.b-bl::after{left:0}
+.scr{position:absolute;right:var(--pad);bottom:24px;z-index:10;font-family:var(--f-m);
+  font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint);writing-mode:vertical-rl}
+
+/* cursor */
+.ring{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;
+  border:1px solid var(--rose);pointer-events:none;z-index:90;opacity:0;transition:opacity .3s,width .25s,height .25s,margin .25s}
+.ring.on{opacity:.75}
+.dot{position:fixed;left:0;top:0;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;
+  background:var(--rose-deep);pointer-events:none;z-index:91;opacity:0;transition:opacity .3s}
+.dot.on{opacity:1}
+
+/* ---------------- MARQUEE ---------------- */
+.marq{border-block:1px solid var(--line);padding:.85rem 0;overflow:hidden;background:var(--bg-2)}
+.mt{display:flex;gap:2.2rem;width:max-content;animation:sl 38s linear infinite}
+@keyframes sl{to{transform:translateX(-50%)}}
+.marq span{font-family:var(--f-m);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);white-space:nowrap}
+.marq span b{color:var(--rose);font-weight:400}
+
+/* ---------------- SECTIONS ---------------- */
+section.blk{padding:clamp(3rem,7vw,6.5rem) var(--pad);position:relative}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;
+  border-bottom:1px solid var(--line);padding-bottom:.9rem;margin-bottom:clamp(1.6rem,4vw,2.8rem)}
+h2.big{font-size:clamp(2rem,7vw,5rem);line-height:.9}
+.count{font-family:var(--f-m);font-size:10.5px;color:var(--faint);letter-spacing:.12em}
+
+/* ---------------- THE DECK ---------------- */
+.deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:22px;justify-items:center}
+.slot{perspective:1200px;width:100%;max-width:270px}
+.co{transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.ci{position:relative;width:100%;aspect-ratio:5/7;transform-style:preserve-3d;
+  transition:transform .6s cubic-bezier(.3,.9,.25,1);cursor:pointer}
+.ci.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:16px;overflow:hidden;backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;display:flex;flex-direction:column;padding:14px;
+  box-shadow:0 14px 30px -18px rgba(90,50,66,.45)}
+.back{transform:rotateY(180deg);background:var(--card);border:1px solid var(--line);color:var(--ink)}
+.front{color:#fff}
+.front.r-est{background:linear-gradient(158deg,#E3AFC0,#C97B94 52%,#8E5069)}
+.front.r-sug{background:linear-gradient(158deg,#CDBEE2,#A895C4 52%,#71618F)}
+.front.r-the{background:linear-gradient(158deg,#E3CFAF,#C6A47C 52%,#8C6E4B)}
+.foil{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;opacity:.85;
+  background:repeating-linear-gradient(112deg,
+    rgba(255,255,255,0) 0px, rgba(255,214,229,.75) 15px, rgba(206,229,246,.7) 30px,
+    rgba(224,244,214,.6) 45px, rgba(255,255,255,0) 60px);
+  background-size:250% 250%}
+.glare{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;
+  background:radial-gradient(230px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.9),transparent 60%)}
+.fc{position:relative;z-index:3;display:flex;flex-direction:column;height:100%}
+.ctop{display:flex;justify-content:space-between;align-items:flex-start;
+  font-family:var(--f-m);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase}
+.rare{border:1px solid rgba(255,255,255,.85);border-radius:99px;padding:2.5px 7px;white-space:nowrap}
+.cart{flex:1;display:flex;align-items:center;justify-content:center;padding:6px 0}
+.cart svg{width:100%;height:auto;max-height:110px}
+.cbot h3{font-size:.98rem;line-height:1.02;margin-bottom:3px}
+.cven{font-family:var(--f-m);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;margin-bottom:7px}
+.cstats{border-top:1px solid rgba(255,255,255,.4);padding-top:6px;display:grid;
+  grid-template-columns:1fr auto;gap:2px 8px;font-family:var(--f-m);font-size:8.5px;letter-spacing:.06em}
+.cstats b{font-weight:400;opacity:.72}
+.cstats span{text-align:right}
+.back .bt{font-family:var(--f-m);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:8px}
+.back h4{font-size:.92rem;line-height:1.05;margin-bottom:8px}
+.back p{font-size:11.5px;line-height:1.55;color:var(--dim);flex:1}
+.back .bl{font-family:var(--f-m);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  border-top:1px solid var(--line);padding-top:8px;margin-top:8px;
+  display:flex;flex-direction:column;gap:5px}
+.back .bl a{color:var(--rose-deep);border-bottom:1px solid transparent;align-self:flex-start;transition:border-color .2s}
+.back .bl a:hover{border-color:var(--rose)}
+.back .bl .soon{color:var(--faint)}
+.hint{text-align:center;font-family:var(--f-m);font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--faint);margin-top:1.4rem}
+
+/* ---------------- BENTO ---------------- */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:860px){.bento{grid-template-columns:repeat(2,1fr)}}
+.cell{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:clamp(14px,2vw,20px);
+  display:flex;flex-direction:column;justify-content:space-between;min-height:145px;overflow:hidden}
+.cell.w2{grid-column:span 2}
+.cell.h2{grid-row:span 2;min-height:310px}
+@media(max-width:860px){.cell.h2{grid-row:span 1;min-height:180px}}
+.cell .chip{font-family:var(--f-m);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-deep)}
+.cell .v{font-family:var(--f-d);font-weight:900;font-size:clamp(1.5rem,4vw,2.9rem);line-height:1;letter-spacing:-.035em;margin-top:.35rem}
+.cell .v.null{color:var(--faint)}
+.cell .c{font-family:var(--f-m);font-size:10px;color:var(--dim);margin-top:.45rem;line-height:1.6}
+.cell .q{font-size:clamp(.95rem,2vw,1.35rem);line-height:1.28;font-weight:500;letter-spacing:-.01em}
+.cell svg{width:100%;height:auto;margin-top:auto}
+
+/* ---------------- TRAY ---------------- */
+.tray{overflow:hidden;padding:.6rem 0}
+.tt{display:flex;gap:12px;width:max-content;animation:sl 56s linear infinite}
+.sl{width:236px;flex:0 0 auto;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px}
+.sl .cap{font-family:var(--f-m);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.sl svg{width:100%;height:60px;display:block}
+.sl .n{font-family:var(--f-m);font-size:10px;color:var(--rose-deep);margin-top:8px}
+
+/* ---------------- TIMELINE ---------------- */
+.tl{position:relative;padding-left:clamp(1.4rem,4.5vw,3.4rem)}
+.tl::before{content:"";position:absolute;left:clamp(.4rem,1.8vw,1.4rem);top:6px;bottom:6px;width:1px;background:var(--line)}
+.ti{position:relative;padding:1.2rem 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:126px 1fr;gap:.5rem 1.5rem}
+@media(max-width:700px){.ti{grid-template-columns:1fr}}
+.ti::before{content:"";position:absolute;left:calc(clamp(.4rem,1.8vw,1.4rem) - clamp(1.4rem,4.5vw,3.4rem) - 4px);
+  top:1.7rem;width:8px;height:8px;background:var(--bg);border:1px solid var(--rose);transform:rotate(45deg)}
+.ti .w{font-family:var(--f-m);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--rose-deep);padding-top:.3rem}
+.ti h4{font-size:clamp(.92rem,2vw,1.25rem);letter-spacing:-.01em}
+.ti .o{font-family:var(--f-m);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:.2rem}
+.ti p{color:var(--dim);font-size:14px;margin-top:.45rem;max-width:58ch}
+
+footer{padding:clamp(2.8rem,6vw,5rem) var(--pad);border-top:1px solid var(--line);background:var(--bg-2);position:relative}
+.fg{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;align-items:flex-end}
+footer .big{font-size:clamp(1.6rem,5.5vw,3.6rem);line-height:.94}
+footer a.lk{border-bottom:1px solid var(--line);font-family:var(--f-m);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+footer a.lk:hover{color:var(--rose-deep);border-color:var(--rose)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.ring,.dot{display:none}}
+</style>
+
+<header class="hero" id="hero">
+  <div class="grid"></div><div class="grain"></div>
+  <span class="bracket b-tr"></span><span class="bracket b-bl"></span>
+
+  <nav>
+    <ul>
+      <li><a href="#deck">Deck</a></li>
+      <li><a href="#findings">Findings</a></li>
+      <li><a href="#practice">Practice</a></li>
+      <li><a href="/Ushna-Malik-CV.pdf">CV</a></li>
+    </ul>
+    <a href="mailto:mushna@uiowa.edu" class="pill">Contact</a>
+  </nav>
+
+  <div class="hero-in">
+    <div class="hero-l">
+      <div class="meta">
+        <span class="lbl">Portfolio &mdash; &copy;2026</span>
+        <span class="lbl">Iowa City &middot; 41.7&deg;N</span>
+        <span class="lbl">Open to collaboration</span>
+      </div>
+      <div>
+        <div class="eyebrow"><span class="lbl">AI &middot; Search &middot; Trust</span></div>
+        <h1 class="nm"><span class="s">Ushna</span><span class="h">Malik</span></h1>
+      </div>
+      <div class="hero-b">
+        <p>Computer science PhD student measuring what AI systems remove between a question and its answer.</p>
+        <div class="cta">
+          <a href="#deck" class="btn btn-s">Open the deck &rarr;</a>
+          <a href="/Ushna-Malik-CV.pdf" class="btn btn-g">&darr; Download CV</a>
+        </div>
+        <div class="socials">
+          <a href="https://github.com/ushnamalikk" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://orcid.org/0009-0009-3390-9302" target="_blank" rel="noopener">ORCID</a>
+          <a href="https://www.linkedin.com/in/ushnamalik" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://arxiv.org/abs/2608.00926" target="_blank" rel="noopener">arXiv</a>
+        </div>
+      </div>
     </div>
-  </header>
 
-  <!-- Main Content -->
-  <main>
-    <!-- Welcome Section -->
-    <section class="welcome">
-      <h2>Welcome! 👋</h2>
-      <blockquote>
-        "It’s the question that drives us, Neo. It’s the question that brought you here."
-        <br> - <em>The Matrix</em>
-      </blockquote>
-     <p>
-        Hi! I am Ushna, a senior computer science student at <span class="highlight">LUMS</span>, deeply interested in societal computing - a field that intersects computer science, behavioral sciences, and data science. I am particularly interested in using computational models, empirical research, and data-driven analytics to address problems with social, political, and policy implications. 
-      </p>
-       <p>
-        At <span class="highlight">LUMS</span>, I have been working under the supervision of 
-          <a href="https://www.ihsanqazi.com" target="_blank" class="highlight">Ihsan Ayyub Qazi</a>, 
-          <a href="https://sites.google.com/view/ayeshaali" target="_blank" class="highlight">Ayesha Ali</a> and,
-          <a href="https://web.lums.edu.pk/~zafar/" target="_blank" class="highlight">Zafar Ayyub Qazi</a> 
-          on research projects that explore the societal impacts of technology.
-        </p>
-      <br>
-        <p>
-        Motivated by the thrill of addressing unique, open-ended challenges, 
-        <span class="phd-highlight">I am now actively seeking PhD opportunities that will allow me to further my research and make a meaningful impact in society.</span>
-      </p>
-      </section>
-    </section>
-
-    <section class="publications">
-      <h2>Research Projects</h2>
-      <ul>
-        <li>
-      <strong>AI-Driven Microtargeted Persuasion Campaigns</strong>
-          <br>
-          This research explores the effectiveness of generative AI in launching video-based microtargeted per- suasion campaigns and their impact on public opinion.
-          <br>
-          <a href="https://github.com/ushnamalikk/Political_Persuasion_Campaigns" target="_blank" class="highlight">[Code]</a> 
-          <a href="https://drive.google.com/file/d/1ReRAAPed486Dg8VhsPwh_I6ORv3k2wrk/view?usp=sharing" target="_blank"  class="highlight">[Pilot Study Report]</a>
-          <a href="https://youtube.com/playlist?list=PLQDTVWr6GbqG7U9g10GUnNrFmEob0bwEO&si=SrWhGHitGtMMxEhD" target="_blank"  class="highlight">[Sample Videos]</a>
-      </li>
-        <br>
-        <li>
-    <strong>Gamified Misinformation Interventions for Global South</strong>
-    <br>
-    This research focuses on the development of gamified solutions to counter misinformation in regions with low digital literacy, using narrative-driven gameplay and reward-based systems to enhance digital literacy and empower users to detect misinformation.
-    <br>
-    <a href="https://github.com/ushnamalikk/gamified-misinformation-intervention/tree/main" target="_blank" class="highlight">[Data]</a> 
-     <a href="https://drive.google.com/file/d/100VAjMD_PzHdPJV8bI-6WxMI0kqfwsqh/view?usp=sharing" class="highlight">[Pilot Study Report]</a>
-    </li>
-    <li>
-    <br>   
-    <strong>Impact of Chain-of-Thought Reasoning on GPT o1-preview Accuracy</strong>
-    <br>
-    This research explores the effectiveness of integrated Chain-of-Thought reasoning in ChatGPT o1- preview for improving accuracy on trivia datasets.
-    <br>
-    <a href="https://github.com/ushnamalikk/gpt-o1preview-cot-reasoning/tree/main" class="highlight">[Data]</a> 
-     <a href="https://drive.google.com/file/d/1vHhZPpEr2jbRexa-YcPbgz4B9zjNqari/view?usp=sharing" class="highlight">[Project Report]</a>
-    </li>
-
-      </ul>
-    </section>
-
-    <section class="teaching">
-    <h2>Teaching Experience</h2>
-
-    <div class="position">
-        <h3>Undergraduate Teaching Assistant, LUMS</h3>
-        <p><strong>Courses:</strong></p>
-       
-            <li>CS334/EE334: Principles and Techniques of Data Science (Fall 2024)</li>
-            <li>CS202/EE202: Data Structures (Spring 2024)</li>
-            <li>CS210/MATH252: Discrete Mathematics (Fall 2023)</li>
-
+    <div class="hero-r">
+      <svg id="av" viewBox="0 0 260 340" aria-label="Illustrated avatar">
+        <circle cx="130" cy="128" r="96" fill="var(--rose-soft)"/>
+        <ellipse cx="130" cy="322" rx="66" ry="11" fill="rgba(51,34,42,.12)"/>
+        <g id="avBody">
+          <path d="M66 320 q0-96 64-96 t64 96z" fill="var(--rose)"/>
+          <path d="M96 232 q34 22 68 0 l-6-20 q-28 16-56 0z" fill="var(--rose-deep)" opacity=".45"/>
+          <rect x="103" y="196" width="54" height="34" rx="15" fill="#F2D2BC"/>
+        </g>
+        <g id="avHead">
+          <path d="M74 168 q-10 62 8 84 q-6-46 4-62z" fill="#3B2A22"/>
+          <path d="M186 168 q10 62-8 84 q6-46-4-62z" fill="#3B2A22"/>
+          <circle cx="130" cy="160" r="54" fill="#F7DCC6"/>
+          <path d="M76 160 q4-58 54-58 t54 58 q-12-26-54-26 t-54 26z" fill="#3B2A22"/>
+          <g id="avEyes">
+            <ellipse id="eL" cx="111" cy="165" rx="5.4" ry="7" fill="#33222A"/>
+            <ellipse id="eR" cx="149" cy="165" rx="5.4" ry="7" fill="#33222A"/>
+          </g>
+          <path d="M120 186 q10 9 20 0" stroke="#33222A" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <circle cx="96" cy="179" r="8" fill="rgba(201,123,148,.3)"/>
+          <circle cx="164" cy="179" r="8" fill="rgba(201,123,148,.3)"/>
+        </g>
+      </svg>
     </div>
+  </div>
+  <span class="scr">Scroll</span>
+</header>
 
-    <div class="position">
-        <h3>Teaching Assistant, LUMS Learning Institute (LLI)</h3>
-        <p><strong>Certificate in Health Professions Education: Data Science Module</strong>  <br><strong>Duration:</strong> August 2024 - Present</p>
+<div class="ring" id="ring"></div><div class="dot" id="dot"></div>
+
+<div class="marq"><div class="mt" id="mt"></div></div>
+
+<!-- ============ DECK ============ -->
+<section class="blk" id="deck">
+  <div class="head">
+    <div>
+      <div class="eyebrow"><span class="lbl">01 / The deck</span></div>
+      <h2 class="big">Research</h2>
     </div>
+    <span class="count">Rarity = strength of evidence</span>
+  </div>
+  <div class="deck" id="deckGrid"></div>
+  <p class="hint">Hover to tilt &middot; click a card to turn it over</p>
 </section>
 
+<!-- ============ FINDINGS ============ -->
+<section class="blk" id="findings">
+  <div class="head">
+    <div>
+      <div class="eyebrow"><span class="lbl">02 / Numbers</span></div>
+      <h2 class="big">Findings</h2>
+    </div>
+    <span class="count">No number without its interval</span>
+  </div>
+  <div class="bento">
+    <div class="cell h2 w2">
+      <span class="chip">Idiolect Erasure Rate &middot; 95% CI</span>
+      <svg viewBox="0 0 340 150" role="img" aria-label="Blogs plus 66.5, Enron plus 52.5, C50 plus 1.0 crossing zero">
+        <line x1="64" y1="12" x2="64" y2="128" stroke="currentColor" stroke-opacity=".25" stroke-dasharray="3 4"/>
+        <line x1="20" y1="128" x2="332" y2="128" stroke="currentColor" stroke-opacity=".25"/>
+        <g stroke="var(--rose)" stroke-width="3" stroke-linecap="round">
+          <line x1="245" y1="34" x2="308" y2="34"/><line x1="146" y1="76" x2="296" y2="76"/>
+        </g>
+        <line x1="24" y1="112" x2="96" y2="112" stroke="currentColor" stroke-opacity=".35" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="276" cy="34" r="5.5" fill="var(--rose)"/><circle cx="230" cy="76" r="5.5" fill="var(--rose)"/>
+        <circle cx="68" cy="112" r="5.5" fill="none" stroke="currentColor" stroke-opacity=".42" stroke-width="3"/>
+        <g font-family="ui-monospace,monospace" font-size="9" fill="currentColor" fill-opacity=".55">
+          <text x="0" y="37">blogs</text><text x="0" y="79">enron</text><text x="0" y="99">c50</text>
+        </g>
+      </svg>
+      <span class="c">C50 crosses zero. Reported anyway.</span>
+    </div>
+    <div class="cell w2"><span class="chip">Deep attribution</span><div class="v">0.815 &rarr; 0.150</div><span class="c">Blog Authorship Corpus, 50 authors, p = 6e&minus;39</span></div>
+    <div class="cell"><span class="chip">Detector evasion</span><div class="v">27%</div><span class="c">of heavy rewrites flagged</span></div>
+    <div class="cell"><span class="chip">After FDR</span><div class="v null">0 / 41</div><span class="c">divergence tests survived</span></div>
+    <div class="cell w2"><span class="chip">The one that held</span><p class="q">I overturned my own positive result.</p><span class="c">Difference in differences, +0.042, FDR p = .024. Divergence is a misinformation effect, not a political filter bubble.</span></div>
+    <div class="cell w2"><span class="chip">Systematization</span><p class="q">Consequences are better established than the mechanisms said to cause them.</p><span class="c">Six of eleven established; the two properties doing the causal work are only suggestive.</span></div>
+  </div>
+</section>
 
-    <section class="teaching">
-      <h2>Honors</h2>
-      <ul>
-        <li>Dean's Honor List, LUMS (2021-2024)</li>
-        <li>Selected for Summer Semester at Stanford (Summer 2023)</li>
-      </ul>
-    </section>
-  </main>
+<!-- ============ TRAY ============ -->
+<section class="blk" style="padding-inline:0">
+  <div class="head" style="margin-inline:var(--pad)">
+    <div><div class="eyebrow"><span class="lbl">Evidence</span></div><h2 class="big">Intervals</h2></div>
+    <span class="count">Every result, with its uncertainty</span>
+  </div>
+  <div class="tray"><div class="tt" id="tt"></div></div>
+</section>
 
-  
-</body>
-</html>
+<!-- ============ PRACTICE ============ -->
+<section class="blk" id="practice">
+  <div class="head">
+    <div><div class="eyebrow"><span class="lbl">03 / Teaching &amp; service</span></div><h2 class="big">Practice</h2></div>
+    <span class="count">(05)</span>
+  </div>
+  <div class="tl">
+    <div class="ti"><span class="w">2025 &mdash;</span><div><h4>Research Assistant</h4><div class="o">University of Iowa &middot; Social Computing</div><p>Auditing how AI intermediaries prioritize, frame, and transform content before users see it.</p></div></div>
+    <div class="ti"><span class="w">2025 &mdash;</span><div><h4>Teaching Assistant</h4><div class="o">Intro CS &middot; Data Structures &middot; Discrete Math</div><p>Undergraduate instruction and lab facilitation across core computer science coursework.</p></div></div>
+    <div class="ti"><span class="w">2024</span><div><h4>Instructor, Health Professionals</h4><div class="o">Predictive analytics</div><p>Trained practicing clinicians in applied predictive modeling and evaluation.</p></div></div>
+    <div class="ti"><span class="w">2023</span><div><h4>Accessibility Associate</h4><div class="o">Stanford &middot; Office of Accessible Education</div><p>Adapted lecture material and course media for accessibility compliance.</p></div></div>
+    <div class="ti"><span class="w">2021 &mdash; 2025</span><div><h4>Peer Ambassador</h4><div class="o">LUMS &middot; Student support</div><p>Peer mentoring and social support for undergraduates.</p></div></div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="grain"></div>
+  <div class="fg">
+    <div><div class="eyebrow"><span class="lbl">Contact</span></div><p class="big">Let&rsquo;s work<br/>on something.</p></div>
+    <div class="lbl-d" style="line-height:2.5;text-align:right">
+      <a href="mailto:mushna@uiowa.edu" class="lk">mushna@uiowa.edu</a><br/>
+      <a href="https://github.com/ushnamalikk" class="lk" target="_blank" rel="noopener">GitHub</a><br/>
+      <a href="https://orcid.org/0009-0009-3390-9302" class="lk" target="_blank" rel="noopener">ORCID 0009&#8209;0009&#8209;3390&#8209;9302</a><br/>
+      <a href="https://www.linkedin.com/in/ushnamalik" class="lk" target="_blank" rel="noopener">LinkedIn</a><br/>
+      <a href="https://arxiv.org/abs/2608.00926" class="lk" target="_blank" rel="noopener">arXiv:2608.00926</a><br/>
+      <a href="/Ushna-Malik-CV.pdf" class="lk">CV (PDF)</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var fine = matchMedia("(pointer:fine)").matches;
+
+  /* ---------- marquee ---------- */
+  var TAGS=["Authorship forensics","Algorithmic auditing","AI-mediated search","Human-AI interaction",
+            "Automation bias","Computational social science","Clinical decision support","Epistemic friction"];
+  var h=""; for(var r=0;r<2;r++) TAGS.forEach(function(t){h+='<span><b>&#9679;</b>&nbsp;&nbsp;'+t+'</span>';});
+  document.getElementById("mt").innerHTML=h;
+
+  /* ---------- the deck ---------- */
+  var GLYPH = {
+    interval: '<svg viewBox="0 0 150 100" aria-hidden="true"><line x1="18" y1="14" x2="18" y2="86" stroke="rgba(255,255,255,.35)" stroke-dasharray="3 4"/><g stroke="#fff" stroke-width="3" stroke-linecap="round"><line x1="86" y1="30" x2="132" y2="30"/><line x1="52" y1="54" x2="120" y2="54"/><line x1="8" y1="78" x2="44" y2="78" stroke-opacity=".45"/></g><circle cx="112" cy="30" r="5" fill="#fff"/><circle cx="92" cy="54" r="5" fill="#fff"/><circle cx="24" cy="78" r="5" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="3"/></svg>',
+    doc: '<svg viewBox="0 0 150 100" aria-hidden="true"><rect x="40" y="10" width="70" height="82" rx="5" fill="rgba(255,255,255,.9)"/><g stroke="rgba(90,50,66,.55)" stroke-width="3" stroke-linecap="round"><line x1="52" y1="28" x2="98" y2="28"/><line x1="52" y1="40" x2="92" y2="40"/><line x1="52" y1="52" x2="98" y2="52"/><line x1="52" y1="64" x2="76" y2="64"/></g><circle cx="98" cy="72" r="9" fill="none" stroke="rgba(90,50,66,.55)" stroke-width="3"/></svg>',
+    net: '<svg viewBox="0 0 150 100" aria-hidden="true"><g stroke="rgba(255,255,255,.55)" stroke-width="2"><line x1="40" y1="24" x2="110" y2="50"/><line x1="40" y1="76" x2="110" y2="50"/><line x1="40" y1="24" x2="40" y2="76"/><line x1="110" y1="50" x2="126" y2="24"/></g><circle cx="40" cy="24" r="7" fill="#fff"/><circle cx="40" cy="76" r="7" fill="#fff"/><circle cx="110" cy="50" r="9" fill="#fff"/><circle cx="126" cy="24" r="5" fill="#fff" fill-opacity=".6"/></svg>',
+    pulse: '<svg viewBox="0 0 150 100" aria-hidden="true"><polyline points="14,58 44,58 56,28 70,80 84,50 100,50 112,36 136,36" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    scale: '<svg viewBox="0 0 150 100" aria-hidden="true"><line x1="75" y1="16" x2="75" y2="84" stroke="#fff" stroke-width="3" stroke-linecap="round"/><line x1="34" y1="30" x2="116" y2="30" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M34 30 l-14 26 h28z" fill="rgba(255,255,255,.85)"/><path d="M116 30 l-14 26 h28z" fill="rgba(255,255,255,.5)"/><rect x="58" y="84" width="34" height="6" rx="3" fill="#fff"/></svg>'
+  };
+
+  /* Every href below is verified live except where marked FORTHCOMING,
+     which renders as plain text rather than a dead link. */
+  var CARDS = [
+    {n:"001", rare:"Established", cls:"r-est", art:GLYPH.interval,
+     title:"The Assistant Erased You", ven:"CSCW 2026 &middot; paper talk",
+     stats:[["Erasure","&minus;82%"],["Authors","50"],["p","6e&minus;39"],["CI","[58, 74]"]],
+     back:"Heavy rewriting by an AI assistant removes 82% of the recoverable authorship signal, while two detectors flag only 24 to 29% of those rewrites as machine written. Double erasure: unattributable to you and undetectable as AI.",
+     links:[["arXiv:2608.00926","https://arxiv.org/abs/2608.00926"],
+            ["Code","https://github.com/ushnamalikk/idiolect-erasure-rate"]]},
+    {n:"002", rare:"Established", cls:"r-est", art:GLYPH.doc,
+     title:"The Frictionless Answer", ven:"Qualifying exam &middot; systematization",
+     stats:[["Properties","9"],["Consequences","11"],["References","120"],["Graded","E / S / T"]],
+     back:"A systematization of what AI-mediated search does to effort, learning and trust. Nine system properties mapped onto eleven user consequences, each graded by strength of evidence. Consequences turn out better established than the mechanisms said to cause them.",
+     links:[["Request a copy","mailto:mushna@uiowa.edu?subject=The%20Frictionless%20Answer"]]},
+    {n:"003", rare:"Theorized", cls:"r-the", art:GLYPH.net,
+     title:"Modeling AI Intermediaries", ven:"University of Iowa &middot; in progress",
+     stats:[["Survived FDR","0 / 41"],["DiD","+0.042"],["FDR p",".024"],["Held","1 query"]],
+     back:"Auditing how generative search systems prioritize, frame and transform content before a user sees a result. The first positive finding did not survive permutation testing and a matched control. What remains is narrower and truer: divergence concentrates on misinformation queries, not political ones.",
+     links:[["Code and data","https://github.com/ushnamalikk/search_divergence"]]},
+    {n:"004", rare:"Suggestive", cls:"r-sug", art:GLYPH.pulse,
+     title:"Physician &amp; LLM Reasoning", ven:"CHI 2026 &middot; mixed methods",
+     stats:[["Setting","LMIC"],["Method","Interview + obs"],["Output","Taxonomy"],["Focus","Calibrated trust"]],
+     back:"How physicians prompt, verify and integrate LLM diagnostic suggestions in a resource-constrained setting, and what a taxonomy of their prompting strategies reveals about where calibrated trust breaks down.",
+     links:[["Code","https://github.com/ushnamalikk/llm-diagnostic-reasoning"],
+            ["Paper forthcoming",null]]},
+    {n:"005", rare:"Established", cls:"r-est", art:GLYPH.scale,
+     title:"Automation Bias, Trained Against", ven:"NEJM AI 2026 &middot; randomised trial",
+     stats:[["Design","RCT"],["N","44"],["Arm","AI literacy"],["Result","No rescue"]],
+     back:"A randomised trial testing whether AI-literacy training protects clinicians from automation bias in diagnostic reasoning. It does not. Trained participants deferred to incorrect model output at rates comparable to untrained ones.",
+     links:[["Paper forthcoming",null]]}
+  ];
+
+  function cardHTML(c){
+    var st = c.stats.map(function(s){ return "<b>"+s[0]+"</b><span>"+s[1]+"</span>"; }).join("");
+    var lk = c.links.map(function(l){
+      return l[1]
+        ? '<a href="'+l[1]+'"'+(l[1].indexOf("mailto:")===0?'':' target="_blank" rel="noopener"')+'>'+l[0]+' &rarr;</a>'
+        : '<span class="soon">'+l[0]+'</span>';
+    }).join("");
+    return '<div class="slot"><div class="co"><div class="ci" tabindex="0" role="button" aria-label="'+
+      c.title.replace(/&amp;/g,"and")+', tap to turn over">'+
+      '<div class="face front '+c.cls+'"><div class="foil"></div><div class="glare"></div><div class="fc">'+
+        '<div class="ctop"><span>No. '+c.n+'</span><span class="rare">'+c.rare+'</span></div>'+
+        '<div class="cart">'+c.art+'</div>'+
+        '<div class="cbot"><h3>'+c.title+'</h3><div class="cven">'+c.ven+'</div>'+
+        '<div class="cstats">'+st+'</div></div>'+
+      '</div></div>'+
+      '<div class="face back"><div class="fc">'+
+        '<div class="bt">No. '+c.n+' &middot; '+c.rare+'</div>'+
+        '<h4>'+c.title+'</h4><p>'+c.back+'</p>'+
+        '<div class="bl">'+lk+'</div>'+
+      '</div></div>'+
+      '</div></div></div>';
+  }
+  var grid = document.getElementById("deckGrid");
+  grid.innerHTML = CARDS.map(cardHTML).join("");
+
+  grid.querySelectorAll(".slot").forEach(function(slot){
+    var outer = slot.querySelector(".co");
+    var inner = slot.querySelector(".ci");
+    var glare = slot.querySelector(".glare");
+    var foil  = slot.querySelector(".foil");
+
+    if (fine && !reduce){
+      slot.addEventListener("pointermove", function(e){
+        var r = slot.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width;
+        var py = (e.clientY - r.top) / r.height;
+        outer.style.transition = "transform .08s linear";
+        outer.style.transform = "rotateX(" + ((0.5-py)*16).toFixed(2) + "deg) rotateY(" +
+                                ((px-0.5)*18).toFixed(2) + "deg) scale(1.035)";
+        foil.style.backgroundPosition = (px*170).toFixed(1) + "% " + (py*170).toFixed(1) + "%";
+        glare.style.setProperty("--gx", (px*100).toFixed(1) + "%");
+        glare.style.setProperty("--gy", (py*100).toFixed(1) + "%");
+      }, {passive:true});
+      slot.addEventListener("pointerleave", function(){
+        outer.style.transition = "transform .5s cubic-bezier(.2,.8,.2,1)";
+        outer.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+        glare.style.setProperty("--gx","50%"); glare.style.setProperty("--gy","50%");
+      }, {passive:true});
+    }
+    function flip(){ inner.classList.toggle("flip"); }
+    inner.addEventListener("click", function(e){
+      // a link on the back should follow, not re-flip the card
+      if (e.target.closest("a")) return;
+      flip();
+    });
+    inner.addEventListener("keydown", function(e){
+      if (e.target.closest("a")) return;
+      if (e.key === "Enter" || e.key === " "){ e.preventDefault(); flip(); }
+    });
+  });
+
+  /* ---------- evidence tray ---------- */
+  var S=[{c:"IER · blog authorship",n:"+66.5  [58, 74]",lo:58,hi:74,pt:66.5},
+         {c:"IER · enron email",n:"+52.5  [31, 71]",lo:31,hi:71,pt:52.5},
+         {c:"IER · reuters c50",n:"+1.0  [−9, 11]",lo:-9,hi:11,pt:1,nul:true},
+         {c:"Function-word attributer",n:"+23.0  p=2e−9",lo:15,hi:31,pt:23},
+         {c:"Topic-only content",n:"+10.0  survives",lo:4,hi:17,pt:10},
+         {c:"Grammar correction",n:"+15.0  baseline",lo:8,hi:22,pt:15},
+         {c:"Author separability",n:"−79%  homogenised",lo:12,hi:30,pt:21},
+         {c:"Population re-ID k=15",n:"45%  assisted",lo:36,hi:54,pt:45}];
+  function svg(s){
+    var X=function(v){return 8+(v+15)/100*212;};
+    var col=s.nul?"currentColor":"var(--rose)", op=s.nul?' stroke-opacity=".4"':'';
+    return '<svg viewBox="0 0 228 60" aria-hidden="true">'+
+      '<line x1="'+X(0)+'" y1="8" x2="'+X(0)+'" y2="52" stroke="currentColor" stroke-opacity=".22" stroke-dasharray="3 4"/>'+
+      '<line x1="'+X(s.lo)+'" y1="30" x2="'+X(s.hi)+'" y2="30" stroke="'+col+'"'+op+' stroke-width="3" stroke-linecap="round"/>'+
+      '<circle cx="'+X(s.pt)+'" cy="30" r="4.6" fill="'+(s.nul?"none":col)+'" stroke="'+col+'"'+op+' stroke-width="3"/></svg>';
+  }
+  var th=""; for(var q=0;q<2;q++) S.forEach(function(s){
+    th+='<div class="sl"><div class="cap">'+s.c+'</div>'+svg(s)+'<div class="n">'+s.n+'</div></div>';});
+  document.getElementById("tt").innerHTML=th;
+
+  /* ---------- cursor ---------- */
+  var ring=document.getElementById("ring"), dot=document.getElementById("dot");
+  if (fine && !reduce){
+    var rx=0, ry=0, mx=0, my=0, on=false;
+    window.addEventListener("pointermove", function(e){
+      mx=e.clientX; my=e.clientY;
+      dot.style.transform="translate("+mx+"px,"+my+"px)";
+      if(!on){ on=true; ring.classList.add("on"); dot.classList.add("on"); tick(); }
+    }, {passive:true});
+    function tick(){
+      rx+=(mx-rx)*0.18; ry+=(my-ry)*0.18;
+      ring.style.transform="translate("+rx.toFixed(1)+"px,"+ry.toFixed(1)+"px)";
+      requestAnimationFrame(tick);
+    }
+    document.querySelectorAll("a,button,.ci").forEach(function(el){
+      el.addEventListener("pointerenter",function(){ring.style.width="52px";ring.style.height="52px";ring.style.margin="-26px 0 0 -26px";});
+      el.addEventListener("pointerleave",function(){ring.style.width="34px";ring.style.height="34px";ring.style.margin="-17px 0 0 -17px";});
+    });
+  }
+
+  /* ---------- avatar ---------- */
+  var av=document.getElementById("av"), head=document.getElementById("avHead"),
+      body=document.getElementById("avBody"), eL=document.getElementById("eL"), eR=document.getElementById("eR");
+  if (av && !reduce){
+    var tx=0,ty=0,cx=0,cy=0,t=0;
+    window.addEventListener("pointermove",function(e){
+      var r=av.getBoundingClientRect();
+      tx=Math.max(-1,Math.min(1,(e.clientX-(r.left+r.width/2))/(window.innerWidth/2)));
+      ty=Math.max(-1,Math.min(1,(e.clientY-(r.top+r.height/2))/(window.innerHeight/2)));
+    },{passive:true});
+    (function loop(){
+      cx+=(tx-cx)*0.08; cy+=(ty-cy)*0.08; t+=0.016;
+      var br=1+Math.sin(t*1.5)*0.014;
+      head.setAttribute("transform","translate("+(cx*10).toFixed(2)+","+(cy*7).toFixed(2)+") rotate("+(cx*4).toFixed(2)+" 130 176)");
+      body.setAttribute("transform","translate("+(cx*3.5).toFixed(2)+",0) scale(1,"+br.toFixed(4)+") translate(0,"+((1-br)*320).toFixed(2)+")");
+      eL.setAttribute("cx",(111+cx*3.6).toFixed(2)); eR.setAttribute("cx",(149+cx*3.6).toFixed(2));
+      eL.setAttribute("cy",(165+cy*2.6).toFixed(2)); eR.setAttribute("cy",(165+cy*2.6).toFixed(2));
+      requestAnimationFrame(loop);
+    })();
+    (function blink(){
+      setTimeout(function(){
+        eL.setAttribute("ry","1"); eR.setAttribute("ry","1");
+        setTimeout(function(){ eL.setAttribute("ry","7"); eR.setAttribute("ry","7"); blink(); },110);
+      }, 2600+Math.random()*4200);
+    })();
+  }
+})();
+</script>
+
