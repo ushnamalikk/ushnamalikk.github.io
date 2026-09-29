@@ -11,204 +11,310 @@
   --ink:#33222A;
   --muted:#6E5560;
   --faint:#A2909A;
-  --line:rgba(51,34,42,.14);
+  --line:rgba(51,34,42,.13);
   --rose:#C97B94;
   --rose-deep:#A05B76;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{background:var(--bg)}
+html{background:var(--bg);scroll-behavior:smooth}
 body{
   background:var(--bg);
+  background-image:radial-gradient(70% 55% at 12% 0%, rgba(201,123,148,.14), transparent 70%);
+  background-repeat:no-repeat;
+  background-attachment:fixed;
   color:var(--ink);
   font-family:"Avenir Next","Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size:16px;
-  line-height:1.65;
-  padding:52px 24px 96px;
-  -webkit-font-smoothing:antialiased;
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:760px;margin:0 auto}
 
-/* header */
-.top{display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-.top img{
-  width:132px;height:132px;border-radius:50%;object-fit:cover;
-  border:3px solid #fff;box-shadow:0 0 0 1px var(--line);flex:0 0 auto;
+/* ---------- two column shell ---------- */
+.page{
+  display:grid;grid-template-columns:292px 1fr;gap:0 72px;
+  max-width:1160px;margin:0 auto;padding:60px 36px 100px;
 }
-h1{font-size:34px;line-height:1.1;color:var(--rose-deep);letter-spacing:-.6px;margin-bottom:6px;font-weight:600}
-.role{color:var(--muted);font-size:15px}
-.links{margin-top:12px;font-size:14.5px}
-.links a{margin-right:18px;white-space:nowrap}
+aside{position:sticky;top:60px;align-self:start}
 
-a{color:var(--rose-deep);text-decoration:none;border-bottom:1px solid rgba(160,91,118,.32)}
+/* ---------- sidebar ---------- */
+aside img{
+  width:148px;height:148px;border-radius:50%;object-fit:cover;object-position:center 22%;
+  border:4px solid #fff;box-shadow:0 2px 14px rgba(120,70,90,.14);display:block;margin-bottom:22px;
+}
+h1{font-size:31px;line-height:1.08;color:var(--rose-deep);letter-spacing:-.6px;font-weight:600;margin-bottom:8px}
+.role{color:var(--muted);font-size:14.5px;line-height:1.55}
+
+.contact{margin-top:20px;display:flex;flex-direction:column;gap:7px}
+.contact a{font-size:14px}
+
+nav{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:1px}
+nav a{
+  position:relative;display:block;padding:6px 0 6px 20px;font-size:13.5px;
+  color:var(--muted);border:0;letter-spacing:.3px;transition:color .18s;
+}
+nav a::before{
+  content:"";position:absolute;left:0;top:50%;width:9px;height:1px;
+  background:var(--line);transition:background .18s,width .18s;
+}
+nav a:hover{color:var(--rose-deep)}
+nav a.on{color:var(--rose-deep);font-weight:600}
+nav a.on::before{background:var(--rose-deep);width:14px}
+
+/* ---------- links ---------- */
+a{color:var(--rose-deep);text-decoration:none;border-bottom:1px solid rgba(160,91,118,.3)}
 a:hover{border-bottom-color:var(--rose-deep)}
-a:focus-visible{outline:2px solid var(--rose-deep);outline-offset:2px}
+a:focus-visible{outline:2px solid var(--rose-deep);outline-offset:3px;border-radius:2px}
+nav a,.contact a{border-bottom:0}
+.contact a:hover{border-bottom:1px solid var(--rose-deep)}
 
-/* sections */
-section{margin-top:40px}
+/* ---------- main ---------- */
+main{min-width:0;max-width:720px}
+section{margin-bottom:46px;scroll-margin-top:40px}
+section:last-child{margin-bottom:0}
 h2{
-  font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--rose);
-  padding-bottom:8px;border-bottom:1px solid var(--line);margin-bottom:18px;font-weight:600;
+  font-size:11.5px;text-transform:uppercase;letter-spacing:2.2px;color:var(--rose);
+  font-weight:600;padding-bottom:9px;border-bottom:1px solid var(--line);margin-bottom:4px;
 }
-p{margin-bottom:12px}
-p:last-child{margin-bottom:0}
+section > p{margin-top:16px;color:var(--muted)}
+section > p:first-of-type{color:var(--ink)}
 
-.item{margin-bottom:20px}
-.item:last-child{margin-bottom:0}
-.item .t{font-weight:600;line-height:1.35}
-.item .m{color:var(--muted);font-size:14.5px;margin-top:3px}
-.item .d{color:var(--muted);font-size:14.5px;margin-top:6px}
-.item .r{font-size:13.5px;margin-top:6px}
-.item .r a{margin-right:16px}
+/* the scannable grid: when/where on the left, what on the right */
+.row{
+  display:grid;grid-template-columns:128px 1fr;gap:4px 28px;
+  padding:19px 0;border-bottom:1px solid var(--line);
+}
+.row:last-of-type{border-bottom:0}
+.side{font-size:13px;color:var(--faint);padding-top:3px;line-height:1.5;letter-spacing:.2px}
+.t{font-weight:600;line-height:1.38}
+.who{color:var(--muted);font-size:14px;margin-top:4px}
+.d{color:var(--muted);font-size:14px;margin-top:7px}
+.r{font-size:13px;margin-top:8px}
+.r a{margin-right:16px}
 
-ul{list-style:none}
-ul li{margin-bottom:8px;padding-left:18px;position:relative;color:var(--muted);font-size:15px}
+ul{list-style:none;margin-top:6px}
+ul li{margin-bottom:7px;padding-left:18px;position:relative;color:var(--muted);font-size:14.5px}
 ul li:last-child{margin-bottom:0}
-ul li::before{content:"";position:absolute;left:0;top:.72em;width:7px;height:1px;background:var(--rose)}
+ul li::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:1px;background:var(--rose)}
 ul li b{color:var(--ink);font-weight:600}
 
-.note{color:var(--faint);font-size:13.5px;margin-top:14px;font-style:italic}
+.note{color:var(--faint);font-size:13px;margin-top:16px;font-style:italic}
 
-footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--faint);font-size:13.5px}
-
+/* ---------- responsive ---------- */
+@media(max-width:940px){
+  .page{grid-template-columns:1fr;gap:0;padding:40px 24px 72px;max-width:760px}
+  aside{position:static;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--line)}
+  aside img{width:120px;height:120px;margin-bottom:18px}
+  nav{display:none}
+  main{max-width:none}
+}
 @media(max-width:560px){
-  body{padding:34px 18px 64px}
-  .top{gap:18px}
-  .top img{width:96px;height:96px}
+  .page{padding:32px 18px 60px}
+  .row{grid-template-columns:1fr;gap:2px}
+  .side{padding-top:0;margin-bottom:4px}
   h1{font-size:27px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="page">
 
-  <div class="top">
-    <img src="IMG_2741.HEIC" alt="Ushna Malik" />
-    <div>
-      <h1>Ushna Malik</h1>
-      <div class="role">
-        PhD Student, Computer Science &middot; University of Iowa<br />
-        Advised by <a href="https://nithyanand.org/" target="_blank" rel="noopener">Rishab Nithyanand</a>
+  <aside>
+    <img src="IMG_2741.jpg" alt="Ushna Malik" />
+    <h1>Ushna Malik</h1>
+    <div class="role">
+      PhD Student, Computer Science<br />
+      University of Iowa<br />
+      Advised by <a href="https://nithyanand.org/" target="_blank" rel="noopener">Rishab Nithyanand</a>
+    </div>
+    <div class="contact">
+      <a href="mailto:mushna@uiowa.edu">mushna@uiowa.edu</a>
+      <a href="https://github.com/ushnamalikk" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/ushnamalik" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://orcid.org/0009-0009-3390-9302" target="_blank" rel="noopener">ORCID</a>
+      <a href="Ushna-Malik-CV.pdf">Curriculum Vitae</a>
+    </div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#publications">Publications</a>
+      <a href="#experience">Experience</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#education">Education</a>
+      <a href="#awards">Awards</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </aside>
+
+  <main>
+
+    <section id="about">
+      <h2>About</h2>
+      <p>I study how AI-mediated systems shape information access, judgment, and decision-making.</p>
+      <p>My interests span human&ndash;AI interaction, AI-mediated search, algorithmic auditing, and computational social science. Before Iowa I completed my BSc at LUMS, working with Ihsan Ayyub Qazi, Ayesha Ali, and Zafar Ayyub Qazi.</p>
+    </section>
+
+    <section id="publications">
+      <h2>Publications</h2>
+
+      <div class="row">
+        <div class="side">CHI 2026</div>
+        <div>
+          <div class="t">Prompting, Oversight, and Adoption: Physicians' Use of Large Language Models for Diagnostic Reasoning in an LMIC</div>
+          <div class="who">U. Malik*, L. I. Ahmad*, et al.</div>
+          <div class="d">Mixed-methods study of vignette interaction logs and 12 physician interviews, examining prompting strategies, verification behaviour, and calibrated trust in a resource-constrained clinical setting.</div>
+          <div class="r"><a href="https://doi.org/10.1145/3772318.3791761" target="_blank" rel="noopener">Paper</a></div>
+        </div>
       </div>
-      <div class="links">
-        <a href="mailto:mushna@uiowa.edu">mushna@uiowa.edu</a>
-        <a href="https://github.com/ushnamalikk" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/ushnamalik" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://orcid.org/0009-0009-3390-9302" target="_blank" rel="noopener">ORCID</a>
-        <a href="Ushna-Malik-CV.pdf">CV</a>
+
+      <div class="row">
+        <div class="side">CSCW 2026<br />Workshop</div>
+        <div>
+          <div class="t">The Assistant Erased You: Measuring Loss of Authorship Signals in AI-Mediated Communication</div>
+          <div class="who">U. Malik, M. S. Awan &middot; Workshop on the Broader Impacts of GenAI in Communication</div>
+          <div class="d">Introduces the Idiolect Erasure Rate, a measure of how much authorship signal survives an AI writing assistant.</div>
+          <div class="r"><a href="https://broader-impacts-workshop.github.io/cscw2026-website/papers/the-assistant-erased-you-measuring-loss-of-authorship.pdf" target="_blank" rel="noopener">Paper</a></div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <section>
-    <h2>About</h2>
-    <p> I study how AI-mediated systems shape information access, judgment, and decision-making.</p>
-    <p>My interests span human&ndash;AI interaction, AI-mediated search, algorithmic auditing, and computational social science. Before Iowa I completed my BSc at LUMS, working with Ihsan Ayyub Qazi, Ayesha Ali, and Zafar Ayyub Qazi.</p>
-  </section>
-
-  <section>
-    <h2>Publications</h2>
-
-    <div class="item">
-      <div class="t">Prompting, Oversight, and Adoption: Physicians' Use of Large Language Models for Diagnostic Reasoning in an LMIC</div>
-      <div class="m">U. Malik*, L. I. Ahmad*, et al. &middot; CHI 2026</div>
-      <div class="d">Mixed-methods study of vignette interaction logs and 12 physician interviews, examining prompting strategies, verification behaviour, and calibrated trust in a resource-constrained clinical setting.</div>
-      <div class="r"><a href="https://doi.org/10.1145/3772318.3791761" target="_blank" rel="noopener">Paper</a></div>
-    </div>
-
-    <div class="item">
-      <div class="t">The Assistant Erased You: Measuring Loss of Authorship Signals in AI-Mediated Communication</div>
-      <div class="m">U. Malik, M. S. Awan &middot; CSCW 2026 Workshop on the Broader Impacts of GenAI in Communication</div>
-      <div class="d">Introduces the Idiolect Erasure Rate, a measure of how much authorship signal survives an AI writing assistant.</div>
-      <div class="r">
-        <a href="https://broader-impacts-workshop.github.io/cscw2026-website/papers/the-assistant-erased-you-measuring-loss-of-authorship.pdf" target="_blank" rel="noopener">Paper</a>
+      <div class="row">
+        <div class="side">In preparation<br />PNAS Nexus</div>
+        <div>
+          <div class="t">AI-Driven Microtargeted Persuasion Campaigns</div>
+          <div class="who">Randomised experiment, N = 197</div>
+          <div class="d">Effectiveness of generative AI in producing video-based microtargeted persuasion, and its effect on opinion change.</div>
+        </div>
       </div>
-    </div>
 
-    <div class="item">
-      <div class="t">AI-Driven Microtargeted Persuasion Campaigns</div>
-      <div class="m">In preparation for PNAS NEXUS &middot; randomised experiment, N = 197</div>
-      <div class="d">Effectiveness of generative AI in producing video-based microtargeted persuasion, and its effect on opinion change.</div>    </div>
+      <p class="note">* Equal contribution.</p>
+    </section>
 
-    <p class="note">* Equal contribution.</p>
-  </section>
+    <section id="experience">
+      <h2>Experience</h2>
 
-  <section>
-    <h2>Experience</h2>
+      <div class="row">
+        <div class="side">2025 &ndash; present</div>
+        <div>
+          <div class="t">Graduate Research Assistant</div>
+          <div class="who">University of Iowa</div>
+          <div class="d">Social computing and algorithmic auditing, with Rishab Nithyanand.</div>
+        </div>
+      </div>
 
-    <div class="item">
-      <div class="t">Graduate Research Assistant &middot; University of Iowa</div>
-      <div class="m">2025 &ndash; present</div>
-      <div class="d">Social computing and algorithmic auditing, with Rishab Nithyanand.</div>
-    </div>
+      <div class="row">
+        <div class="side">2023 &ndash; 2025</div>
+        <div>
+          <div class="t">Research Assistant</div>
+          <div class="who">LUMS</div>
+          <div class="d">Survey administration and session proctoring for two clinical trials of LLM diagnostic assistance (Nature Health 2026; NEJM AI 2026), alongside independent research on LLM-generated persuasion and misinformation.</div>
+        </div>
+      </div>
 
-    <div class="item">
-      <div class="t">Research Assistant &middot; LUMS</div>
-      <div class="m">2023 &ndash; 2025</div>
-      <div class="d">Survey administration and session proctoring for two clinical trials of LLM diagnostic assistance (Nature Health 2026; NEJM AI 2026), alongside independent research on LLM-generated persuasion and misinformation.</div>
-    </div>
+      <div class="row">
+        <div class="side">Summer 2023</div>
+        <div>
+          <div class="t">Student Service Provider</div>
+          <div class="who">Stanford University &middot; Office of Accessible Education</div>
+          <div class="d">Adapted lecture materials for COMM 102S to meet accessibility requirements.</div>
+        </div>
+      </div>
+    </section>
 
-    <div class="item">
-      <div class="t">Student Service Provider &middot; Stanford University</div>
-      <div class="m">Summer 2023 &middot; Office of Accessible Education</div>
-      <div class="d">Adapted lecture materials for COMM 102S to meet accessibility requirements.</div>
-    </div>
-  </section>
+    <section id="teaching">
+      <h2>Teaching</h2>
 
-  <section>
-    <h2>Teaching</h2>
+      <div class="row">
+        <div class="side">University<br />of Iowa</div>
+        <div>
+          <div class="t">Graduate Teaching Assistant</div>
+          <ul>
+            <li><b>CS 1110</b> Introduction to Computer Science (Fall 2025, Spring 2026)</li>
+          </ul>
+        </div>
+      </div>
 
-    <div class="item">
-      <div class="t">Graduate Teaching Assistant &middot; University of Iowa</div>
-      <ul>
-        <li><b>CS 1110</b> Introduction to Computer Science (Fall 2025, Spring 2026)</li>
+      <div class="row">
+        <div class="side">LUMS</div>
+        <div>
+          <div class="t">Undergraduate Teaching Assistant</div>
+          <ul>
+            <li><b>CS334 / EE334</b> Principles and Techniques of Data Science (Fall 2024)</li>
+            <li><b>CS202 / EE202</b> Data Structures (Spring 2024)</li>
+            <li><b>CS210 / MATH252</b> Discrete Mathematics (Fall 2023)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="side">Aug &ndash; Dec 2024</div>
+        <div>
+          <div class="t">Teaching Assistant</div>
+          <div class="who">LUMS Learning Institute</div>
+          <div class="d">Quantitative techniques module, Certificate in Health Professions Education. Trained practising health professionals in predictive analytics and exploratory data analysis.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+
+      <div class="row">
+        <div class="side">2025 &ndash; present</div>
+        <div>
+          <div class="t">PhD, Computer Science</div>
+          <div class="who">University of Iowa</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="side">2021 &ndash; 2025</div>
+        <div>
+          <div class="t">BSc, Computer Science, with Distinction</div>
+          <div class="who">LUMS &middot; Lahore, Pakistan</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="side">Summer 2023</div>
+        <div>
+          <div class="t">Undergraduate Summer Semester</div>
+          <div class="who">Stanford University</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="awards">
+      <h2>Awards</h2>
+      <ul style="margin-top:16px">
+        <li><b>Graduated with Distinction</b>, LUMS (2025)</li>
+        <li><b>Dean's Honor List</b>, LUMS (2021 &ndash; 2025), top 10% of the batch</li>
       </ul>
-    </div>
+    </section>
 
-    <div class="item">
-      <div class="t">Undergraduate Teaching Assistant &middot; LUMS</div>
-      <ul>
-        <li><b>CS334 / EE334</b> Principles and Techniques of Data Science (Fall 2024)</li>
-        <li><b>CS202 / EE202</b> Data Structures (Spring 2024)</li>
-        <li><b>CS210 / MATH252</b> Discrete Mathematics (Fall 2023)</li>
-      </ul>
-    </div>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>The best way to reach me is by email at <a href="mailto:mushna@uiowa.edu">mushna@uiowa.edu</a>.</p>
+      <p>Department of Computer Science, University of Iowa, Iowa City, IA.</p>
+    </section>
 
-    <div class="item">
-      <div class="t">Teaching Assistant &middot; LUMS Learning Institute</div>
-      <div class="m">August &ndash; December 2024</div>
-      <div class="d">Quantitative techniques module, Certificate in Health Professions Education. Trained practising health professionals in predictive analytics and exploratory data analysis.</div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Education</h2>
-    <div class="item">
-      <div class="t">PhD, Computer Science &middot; University of Iowa</div>
-      <div class="m">August 2025 &ndash; present</div>
-    </div>
-    <div class="item">
-      <div class="t">BSc, Computer Science, with Distinction &middot; LUMS</div>
-      <div class="m">August 2021 &ndash; May 2025 &middot; Lahore, Pakistan</div>
-    </div>
-    <div class="item">
-      <div class="t">Undergraduate Summer Semester &middot; Stanford University</div>
-      <div class="m">June &ndash; August 2023</div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Awards</h2>
-    <ul>
-      <li><b>Graduated with Distinction</b>, LUMS (2025)</li>
-      <li><b>Dean's Honor List</b>, LUMS (2021 &ndash; 2025), top 10% of the batch</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Contact</h2>
-    <p>The best way to reach me is by email at <a href="mailto:mushna@uiowa.edu">mushna@uiowa.edu</a>.</p>
-    <p>Department of Computer Science, University of Iowa, Iowa City, IA.</p>
-  </section>
+  </main>
 </div>
+
+<script>
+/* Highlights the current section in the sidebar. The page is fully
+   usable without this. */
+(function(){
+  if(!("IntersectionObserver" in window)) return;
+  var links = {}, secs = [].slice.call(document.querySelectorAll("main section"));
+  document.querySelectorAll("nav a").forEach(function(a){ links[a.getAttribute("href").slice(1)] = a; });
+  function clear(){ for(var k in links) links[k].classList.remove("on"); }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ clear(); if(links[e.target.id]) links[e.target.id].classList.add("on"); }
+    });
+  }, {rootMargin:"-10% 0px -70% 0px", threshold:0});
+  secs.forEach(function(s){ io.observe(s); });
+})();
+</script>
 </body>
 </html>
