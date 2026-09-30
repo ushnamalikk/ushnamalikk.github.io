@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Ushna Malik</title>
-<meta name="description" content="Ushna Malik, PhD student in Computer Science at the University of Iowa." />
+<meta name="description" content="Ushna Malik is a PhD student in Computer Science at the University of Iowa studying AI intermediaries: how AI assistants and AI-generated search answers prioritise, frame, and rewrite information." />
 <style>
 :root{
   --bg:#FAF0F2;
@@ -14,6 +14,7 @@
   --line:rgba(51,34,42,.13);
   --rose:#C97B94;
   --rose-deep:#A05B76;
+  --tint:rgba(201,123,148,.10);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{background:var(--bg);scroll-behavior:smooth}
@@ -30,7 +31,7 @@ body{
 /* ---------- two column shell ---------- */
 .page{
   display:grid;grid-template-columns:292px 1fr;gap:0 72px;
-  max-width:1160px;margin:0 auto;padding:60px 36px 100px;
+  max-width:1180px;margin:0 auto;padding:60px 36px 100px;
 }
 aside{position:sticky;top:60px;align-self:start}
 
@@ -58,6 +59,21 @@ nav a:hover{color:var(--rose-deep)}
 nav a.on{color:var(--rose-deep);font-weight:600}
 nav a.on::before{background:var(--rose-deep);width:14px}
 
+.stage-wrap{margin-top:22px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+#stage{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges}
+.stage-bar{display:flex;justify-content:space-between;gap:8px;padding:6px 10px;font-size:11px;color:var(--faint);border-top:1px solid var(--line);background:var(--bg);letter-spacing:.2px}
+#stage-count{color:var(--rose-deep);font-weight:600;white-space:nowrap}
+.find{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin:0 2px;border-radius:3px;background:var(--tint);border:1px solid rgba(160,91,118,.35);cursor:pointer;position:relative;transition:transform .15s}
+.find::after{content:"";position:absolute;inset:3px;border-radius:2px;background:var(--rose)}
+.find:hover{transform:scale(1.25)}
+.find.got{background:var(--rose-deep);border-color:var(--rose-deep)}
+.find.got::after{inset:0;background:none;content:"\2713";color:#fff;font-size:10px;line-height:12px;text-align:center}
+.find.pop{animation:pop .35s ease-out}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.6)}100%{transform:scale(1)}}
+/* chapters: roughly one screen each, gentle snapping */
+main section{min-height:78vh;scroll-margin-top:40px}
+main section#contact,main section#unlocked{min-height:0}
+
 /* ---------- links ---------- */
 a{color:var(--rose-deep);text-decoration:none;border-bottom:1px solid rgba(160,91,118,.3)}
 a:hover{border-bottom-color:var(--rose-deep)}
@@ -66,28 +82,56 @@ nav a,.contact a{border-bottom:0}
 .contact a:hover{border-bottom:1px solid var(--rose-deep)}
 
 /* ---------- main ---------- */
-main{min-width:0;max-width:720px}
-section{margin-bottom:46px;scroll-margin-top:40px}
+main{min-width:0;max-width:760px;padding-bottom:38vh}
+section{margin-bottom:52px;scroll-margin-top:40px}
 section:last-child{margin-bottom:0}
 h2{
   font-size:11.5px;text-transform:uppercase;letter-spacing:2.2px;color:var(--rose);
   font-weight:600;padding-bottom:9px;border-bottom:1px solid var(--line);margin-bottom:4px;
 }
+h3{font-size:16px;font-weight:600;line-height:1.35;margin-bottom:6px}
 section > p{margin-top:16px;color:var(--muted)}
 section > p:first-of-type{color:var(--ink)}
+.lead{font-size:17px;line-height:1.6}
+.interests{font-size:13.5px;color:var(--faint);font-style:italic}
+b{font-weight:600;color:var(--ink)}
 
-/* the scannable grid: when/where on the left, what on the right */
-.row{
-  display:grid;grid-template-columns:128px 1fr;gap:4px 28px;
-  padding:19px 0;border-bottom:1px solid var(--line);
-}
+/* research themes */
+.theme{padding:18px 0;border-bottom:1px solid var(--line)}
+.theme:last-of-type{border-bottom:0}
+.theme p{color:var(--muted);font-size:15px}
+.theme .tag{font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:4px}
+
+/* news */
+.news{list-style:none;margin-top:6px}
+.news li{display:grid;grid-template-columns:118px 1fr;gap:20px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px;color:var(--muted)}
+.news li:last-child{border-bottom:0}
+.news .when{color:var(--faint);font-size:13px;padding-top:2px;letter-spacing:.2px}
+
+/* publications */
+.pub{display:grid;grid-template-columns:170px 1fr;gap:6px 26px;padding:24px 0;border-bottom:1px solid var(--line)}
+.pub:last-of-type{border-bottom:0}
+.pub .fig{padding-top:4px}
+.pub .fig img{width:100%;display:block;border:1px solid var(--line);border-radius:6px;background:#fff}
+.pub .fig .ph{width:100%;aspect-ratio:4/3;border:1px dashed rgba(160,91,118,.35);border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:12px;letter-spacing:.3px;background:var(--tint)}
+.pub .t{font-weight:600;line-height:1.38;font-size:16px}
+.pub .who{color:var(--muted);font-size:14px;margin-top:5px}
+.pub .who b{color:var(--ink)}
+.pub .venue{font-size:13.5px;color:var(--rose-deep);margin-top:4px}
+.pub .venue .badge{display:inline-block;font-size:11px;letter-spacing:.6px;text-transform:uppercase;font-weight:600;background:var(--tint);color:var(--rose-deep);border-radius:4px;padding:1px 7px;margin-left:6px;vertical-align:1px}
+.pub .d{color:var(--muted);font-size:14.5px;margin-top:10px}
+.pub ul{margin-top:8px}
+.pub ul li{font-size:14px}
+.pub .r{font-size:13.5px;margin-top:10px}
+.pub .r a{margin-right:16px}
+
+/* generic rows: when/where on the left, what on the right */
+.row{display:grid;grid-template-columns:128px 1fr;gap:4px 28px;padding:17px 0;border-bottom:1px solid var(--line)}
 .row:last-of-type{border-bottom:0}
 .side{font-size:13px;color:var(--faint);padding-top:3px;line-height:1.5;letter-spacing:.2px}
 .t{font-weight:600;line-height:1.38}
 .who{color:var(--muted);font-size:14px;margin-top:4px}
 .d{color:var(--muted);font-size:14px;margin-top:7px}
-.r{font-size:13px;margin-top:8px}
-.r a{margin-right:16px}
 
 ul{list-style:none;margin-top:6px}
 ul li{margin-bottom:7px;padding-left:18px;position:relative;color:var(--muted);font-size:14.5px}
@@ -97,48 +141,23 @@ ul li b{color:var(--ink);font-weight:600}
 
 .note{color:var(--faint);font-size:13px;margin-top:16px;font-style:italic}
 
-/* ---------- pixel character + game ---------- */
-.pixel-wrap{display:flex;align-items:flex-end;gap:12px;margin-top:20px}
-#pixel-me{image-rendering:pixelated;image-rendering:crisp-edges;width:60px;height:84px;cursor:pointer;flex:none}
-.play{font-size:13px;color:var(--rose-deep);border-bottom:0;line-height:1.4}
-.play b{display:block;font-weight:600}
-.play span{color:var(--faint);font-size:12px}
-.play:hover b{border-bottom:1px solid var(--rose-deep)}
-body.gm-open{overflow:hidden}
-#gm-backdrop{position:fixed;inset:0;z-index:50;background:rgba(51,34,42,.42);display:flex;align-items:center;justify-content:center;padding:16px}
-#gm-backdrop[hidden]{display:none}
-#gm{background:var(--bg);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 60px rgba(51,34,42,.28);
-  padding:16px 18px 14px;width:100%;max-width:312px;position:relative}
-#gm h3{font-size:15px;font-weight:600;color:var(--rose-deep);letter-spacing:-.2px}
-#gm .tag{font-size:12px;color:var(--muted);margin-top:2px}
-#gm-close{position:absolute;top:10px;right:12px;width:28px;height:28px;border:0;background:none;color:var(--faint);
-  font-size:20px;line-height:1;cursor:pointer;border-radius:50%}
-#gm-close:hover{color:var(--rose-deep);background:rgba(201,123,148,.14)}
-.gm-hud{display:flex;justify-content:space-between;align-items:center;margin:12px 0 8px;font-size:12px;color:var(--muted);letter-spacing:.3px}
-.gm-hud b{color:var(--ink);font-weight:600;font-size:14px;margin-left:4px}
-#gm-lives span{color:rgba(51,34,42,.14);font-size:15px;margin-left:2px}
-#gm-lives span.on{color:var(--rose)}
-.gm-stage{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg)}
-#gm-canvas{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges;touch-action:none;outline:0}
-#gm-msg{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-  padding:20px;background:rgba(250,240,242,.78);cursor:pointer}
-.gm-big{font-size:16px;font-weight:600;color:var(--ink);line-height:1.35}
-.gm-small{font-size:12.5px;color:var(--muted);margin-top:8px}
-.gm-help{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint);margin-top:10px}
-.gm-help kbd{font:inherit;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-right:2px}
-
 /* ---------- responsive ---------- */
 @media(max-width:940px){
   .page{grid-template-columns:1fr;gap:0;padding:40px 24px 72px;max-width:760px}
   aside{position:static;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--line)}
   aside img{width:120px;height:120px;margin-bottom:18px}
   nav{display:none}
-  .pixel-wrap{margin-top:16px}
-  main{max-width:none}
+  main{max-width:none;padding-bottom:20vh}
+  .stage-wrap{position:fixed;right:10px;bottom:10px;width:118px;z-index:20;margin:0;box-shadow:0 6px 24px rgba(51,34,42,.18)}
+  .stage-bar{padding:4px 8px;font-size:10px}
+  .stage-bar span:first-child{display:none}
+  main section{min-height:0}
 }
-@media(max-width:560px){
+@media(max-width:600px){
   .page{padding:32px 18px 60px}
-  .row{grid-template-columns:1fr;gap:2px}
+  .row,.pub,.news li{grid-template-columns:1fr;gap:2px}
+  .pub{gap:12px}
+  .pub .fig{max-width:260px}
   .side{padding-top:0;margin-bottom:4px}
   h1{font-size:27px}
 }
@@ -161,116 +180,135 @@ body.gm-open{overflow:hidden}
     </div>
     <div class="contact">
       <a href="mailto:mushna@uiowa.edu">mushna@uiowa.edu</a>
+      <a href="Ushna-Malik-CV.pdf" target="_blank" rel="noopener">Curriculum Vitae</a>
+      <a href="https://www.semanticscholar.org/author/2176019548" target="_blank" rel="noopener">Semantic Scholar</a>
       <a href="https://github.com/ushnamalikk" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/ushnamalik" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://orcid.org/0009-0009-3390-9302" target="_blank" rel="noopener">ORCID</a>
-      <a href="Ushna-Malik-CV.pdf">Curriculum Vitae</a>
-    </div>
-    <div class="pixel-wrap">
-      <canvas id="pixel-me" width="60" height="84" data-play aria-label="Pixel Ushna. Click to play Source Catch." role="button" tabindex="0"></canvas>
-      <a href="#" class="play" data-play><b>Play Source Catch</b><span>a 30-second break</span></a>
     </div>
     <nav>
       <a href="#about">About</a>
+      <a href="#research">Research</a>
       <a href="#publications">Publications</a>
-      <a href="#experience">Experience</a>
+      <a href="#news">News</a>
       <a href="#teaching">Teaching</a>
       <a href="#education">Education</a>
-      <a href="#awards">Awards</a>
       <a href="#contact">Contact</a>
     </nav>
+    <div class="stage-wrap" aria-hidden="true">
+      <canvas id="stage" width="146" height="110"></canvas>
+      <div class="stage-bar"><span>Five things are hidden in the text.</span><span id="stage-count">0 / 5 found</span></div>
+    </div>
   </aside>
 
   <main>
 
     <section id="about">
       <h2>About</h2>
-      <p>I study how AI-mediated systems shape information access, judgment, and decision-making.</p>
-      <p>My interests span human&ndash;AI interaction, AI-mediated search, algorithmic auditing, and computational social science. Before Iowa I completed my BSc at LUMS, working with Ihsan Ayyub Qazi, Ayesha Ali, and Zafar Ayyub Qazi.</p>
+      <p class="lead">I am a PhD student in <a href="https://cs.uiowa.edu" target="_blank" rel="noopener">Computer Science at the University of Iowa</a>, advised by <a href="https://nithyanand.org/" target="_blank" rel="noopener">Rishab Nithyanand</a>. I study <b>AI intermediaries</b>: the chat assistants, AI-generated search answers, and writing assistants that now sit between people and information.<span class="find" data-find="about" title="Found one"></span> My work audits what these systems prioritise, frame, and rewrite before a person ever sees it, and measures what that does to judgment, decision-making, and identity.</p>
+      <p>Before Iowa I completed a BSc in Computer Science, with Distinction, at the <a href="https://lums.edu.pk" target="_blank" rel="noopener">Lahore University of Management Sciences</a>, where I worked with <a href="https://web.lums.edu.pk/~ihsan/" target="_blank" rel="noopener">Ihsan Ayyub Qazi</a>, Ayesha Ali, and <a href="https://web.lums.edu.pk/~zafar/" target="_blank" rel="noopener">Zafar Ayyub Qazi</a> on how physicians use large language models and on AI-generated political persuasion. I spent the summer of 2023 at Stanford University.</p>
+      <p class="interests">Research interests: human&ndash;AI interaction, AI-mediated search and communication, algorithmic auditing, computational social science.</p>
+    </section>
+
+    <section id="research">
+      <h2>Research</h2>
+
+      <div class="theme">
+        <div class="tag">Current &middot; with Rishab Nithyanand</div>
+        <h3>AI intermediaries in information seeking</h3>
+        <p>Search engines are being replaced by systems that answer instead of retrieve. I am auditing how these AI intermediaries choose and frame their sources. We run controlled, repeated prompt sets across conventional web search and large language models, with and without retrieved documents,<span class="find" data-find="research" title="Found one"></span> on politically contested and health-related queries, and measure whether AI answers narrow or widen the gap between what different groups of people are shown.</p>
+      </div>
+
+      <div class="theme">
+        <div class="tag">Clinical AI &middot; Lahore University of Management Sciences</div>
+        <h3>How physicians use large language models in low-resource settings</h3>
+        <p>In Pakistan, where the physician shortage is acute, I led a mixed-methods study of how 19 practising physicians used ChatGPT-4o while solving six expert-designed diagnostic vignettes, combining every interaction log, graded diagnostic reasoning, and 12 interviews (<a href="#pub-chi26">CHI 2026</a>). As a research assistant I also contributed to two randomised trials of LLM diagnostic assistance, including one (N = 44) testing whether AI-literacy training protects physicians from automation bias when the model's suggestion is wrong (Nature Health 2026; NEJM AI 2026).</p>
+      </div>
+
+      <div class="theme">
+        <div class="tag">AI-mediated communication</div>
+        <h3>Authorship, persuasion, and the assistant in the middle</h3>
+        <p>When an AI assistant rewrites a message, is the author still recognisable? With Moiz Sadiq Awan I introduced the <b>Idiolect Erasure Rate</b>, the drop in authorship-attribution accuracy after AI rewriting, and showed that heavy rewriting removes most of the recoverable authorship signal in personal and workplace writing (<a href="#pub-cscw26">CSCW 2026 workshop</a>). Earlier, I led a randomised experiment (N = 197) on whether LLM-generated, microtargeted political videos shift opinions in a Global South setting (in preparation for PNAS Nexus).</p>
+      </div>
     </section>
 
     <section id="publications">
       <h2>Publications</h2>
 
-      <div class="row">
-        <div class="side">CHI 2026</div>
+      <div class="pub" id="pub-chi26">
+        <div class="fig"><img src="figs/chi26-physicians.jpg" alt="Study design: 19 physicians solved six vignettes with ChatGPT-4o; logs, graded reasoning, and 12 interviews were analysed." /></div>
         <div>
           <div class="t">Prompting, Oversight, and Adoption: Physicians' Use of Large Language Models for Diagnostic Reasoning in an LMIC</div>
-          <div class="who">U. Malik*, L. I. Ahmad*, et al.</div>
-          <div class="d">Mixed-methods study of vignette interaction logs and 12 physician interviews, examining prompting strategies, verification behaviour, and calibrated trust in a resource-constrained clinical setting.</div>
-          <div class="r"><a href="https://doi.org/10.1145/3772318.3791761" target="_blank" rel="noopener">Paper</a></div>
+          <div class="who"><b>Ushna Malik</b>*, Laiba Intizar Ahmad*, Amna Hassan, Izzah Shafique, Eilya Mohsin, Ayesha Ali, Muhammad Hamad Alizai, Ihsan Ayyub Qazi</div>
+          <div class="venue">Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems (CHI '26), Article 146, 19 pages<span class="badge">Open access</span></div>
+          <div class="d">Mixed-methods study of 19 practising physicians in Pakistan who solved six expert-designed clinical vignettes with optional access to ChatGPT-4o. We analysed every interaction log, had three licensed physicians grade the diagnostic reasoning, and interviewed 12 participants.</div>
+          <ul>
+            <li>Physicians used <b>four prompting strategies</b>: authority assertion (role assignment, scaffolding), workflow structuring, clinical reasoning (validation versus reliance), and iterative refinement.</li>
+            <li><b>Context completeness mattered most.</b> Pasting the full case into the model reached 62.5% diagnostic accuracy, against 39.1% for manually summarised prompts.</li>
+            <li><b>42% drifted</b> from cautious scaffolding to direct queries over the session, yet every participant kept verifying the model's output through adversarial prompts and stepwise control.</li>
+            <li>Junior physicians relied on structured scaffolding; seniors cross-checked opportunistically. Interviews framed the model as a "second brain" tempered by concerns about reliability, privacy, and patient trust.</li>
+          </ul>
+          <div class="r"><a href="https://doi.org/10.1145/3772318.3791761" target="_blank" rel="noopener">Paper</a><a href="https://dl.acm.org/doi/10.1145/3772318.3791761" target="_blank" rel="noopener">ACM DL</a></div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="side">CSCW 2026<br />Workshop</div>
+      <div class="pub" id="pub-cscw26">
+        <div class="fig"><img src="figs/cscw26-ier.png" alt="Bar chart: heavy AI rewriting erases 66.5 points of deep authorship attribution on blogs and 52.5 on email, but almost none on news." /></div>
         <div>
           <div class="t">The Assistant Erased You: Measuring Loss of Authorship Signals in AI-Mediated Communication</div>
-          <div class="who">U. Malik, M. S. Awan &middot; Workshop on the Broader Impacts of GenAI in Communication</div>
-          <div class="d">Introduces the Idiolect Erasure Rate, a measure of how much authorship signal survives an AI writing assistant.</div>
-          <div class="r"><a href="https://broader-impacts-workshop.github.io/cscw2026-website/papers/the-assistant-erased-you-measuring-loss-of-authorship.pdf" target="_blank" rel="noopener">Paper</a></div>
+          <div class="who"><b>Ushna Malik</b>, Moiz Sadiq Awan</div>
+          <div class="venue"><a href="https://broader-impacts-workshop.github.io/cscw2026-website/" target="_blank" rel="noopener">Workshop on the Broader Impacts of Generative AI in Communication</a>, CSCW 2026<span class="badge">Paper talk</span></div>
+          <div class="d">Introduces the <b>Idiolect Erasure Rate</b> (IER): the percentage-point drop in authorship-attribution accuracy after an AI assistant rewrites a message. Evaluated on three pre-generative-AI corpora (50 bloggers, 20 Enron email users, 25 Reuters journalists) with a stylometric SVM and the LUAR neural attributer, under light, heavy, and "preserve my voice" rewriting.</div>
+          <ul>
+            <li>Heavy rewriting cut LUAR attribution by <b>66.5 points on personal blogs</b> and <b>52.5 on workplace email</b>, more than three quarters of the recoverable authorship signal.</li>
+            <li>On beat-structured news the deep attributer barely moved (+1.0, not significant): topic stood in for identity.</li>
+            <li>Even prompts that explicitly instruct the assistant to preserve the author's voice removed most of the signal.</li>
+            <li><b>Double erasure:</b> heavily rewritten messages also evade AI-text detectors, so they can neither be attributed to their author nor identified as AI-assisted.</li>
+          </ul>
+          <div class="r"><a href="https://broader-impacts-workshop.github.io/cscw2026-website/papers/the-assistant-erased-you-measuring-loss-of-authorship.pdf" target="_blank" rel="noopener">Paper</a><a href="https://github.com/ushnamalikk/idiolect-erasure-rate" target="_blank" rel="noopener">Code and data</a></div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="side">In preparation<br />PNAS Nexus</div>
+      <div class="pub" id="pub-pnas">
+        <div class="fig"><div class="ph">In preparation</div></div>
         <div>
-          <div class="t">AI-Driven Microtargeted Persuasion Campaigns</div>
-          <div class="who">Randomised experiment, N = 197</div>
-          <div class="d">Effectiveness of generative AI in producing video-based microtargeted persuasion, and its effect on opinion change.</div>
+          <div class="t">AI-Generated Multimodal Political Persuasion Campaigns</div>
+          <div class="who"><b>Ushna Malik</b>, with Ihsan Ayyub Qazi and Ayesha Ali</div>
+          <div class="venue">In preparation for PNAS Nexus</div>
+          <div class="d">A randomised controlled experiment (N = 197) in a Global South setting measuring whether LLM-generated, microtargeted political videos, produced with generative text, voice, and video tools, shift participants' opinions. The results speak to the debate over AI-enabled influence operations and what platform safeguards would need to detect.</div>
         </div>
       </div>
 
-      <p class="note">* Equal contribution.</p>
+      <p class="note">* Equal contribution.<span class="find" data-find="publications" title="Found one"></span></p>
     </section>
 
-    <section id="experience">
-      <h2>Experience</h2>
-
-      <div class="row">
-        <div class="side">2025 &ndash; present</div>
-        <div>
-          <div class="t">Graduate Research Assistant</div>
-          <div class="who">University of Iowa</div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="side">2023 &ndash; 2025</div>
-        <div>
-          <div class="t">Research Assistant</div>
-          <div class="who">LUMS</div>
-          <div class="d">Survey administration and session proctoring for two clinical trials of LLM diagnostic assistance (Nature Health 2026; NEJM AI 2026), alongside independent research on LLM-generated persuasion and misinformation.</div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="side">Summer 2023</div>
-        <div>
-          <div class="t">Student Service Provider</div>
-          <div class="who">Stanford University &middot; Office of Accessible Education</div>
-          <div class="d">Adapted lecture materials for COMM 102S to meet accessibility requirements.</div>
-        </div>
-      </div>
+    <section id="news">
+      <h2>News</h2>
+      <ul class="news">
+        <li><span class="when">September 2026</span><span>"The Assistant Erased You" was accepted at the CSCW 2026 Workshop on the Broader Impacts of Generative AI in Communication. I will give a paper talk and a lightning talk.</span></li>
+        <li><span class="when">April 2026</span><span>Our paper on physicians' use of large language models for diagnostic reasoning appeared at <a href="https://chi2026.acm.org" target="_blank" rel="noopener">CHI 2026</a> in Barcelona.</span></li>
+        <li><span class="when">August 2025</span><span>Started my PhD in Computer Science at the University of Iowa, advised by Rishab Nithyanand.</span></li>
+        <li><span class="when">May 2025</span><span>Graduated with Distinction from the Lahore University of Management Sciences, after four consecutive years on the Dean's Honor List.</span></li>
+      </ul>
     </section>
 
     <section id="teaching">
       <h2>Teaching</h2>
 
       <div class="row">
-        <div class="side">University<br />of Iowa</div>
+        <div class="side">2025 &ndash; 2026</div>
         <div>
-          <div class="t">Graduate Teaching Assistant</div>
+          <div class="t">Graduate Teaching Assistant, University of Iowa</div>
           <ul>
-            <li><b>CS 1110</b> Introduction to Computer Science (Fall 2025, Spring 2026)</li>
+            <li><b>CS 1110</b> Introduction to Computer Science (Fall 2025, Spring 2026)<span class="find" data-find="teaching" title="Found one"></span></li>
           </ul>
         </div>
       </div>
 
       <div class="row">
-        <div class="side">LUMS</div>
+        <div class="side">2023 &ndash; 2024</div>
         <div>
-          <div class="t">Undergraduate Teaching Assistant</div>
+          <div class="t">Undergraduate Teaching Assistant, Lahore University of Management Sciences</div>
           <ul>
             <li><b>CS334 / EE334</b> Principles and Techniques of Data Science (Fall 2024)</li>
             <li><b>CS202 / EE202</b> Data Structures (Spring 2024)</li>
@@ -282,9 +320,8 @@ body.gm-open{overflow:hidden}
       <div class="row">
         <div class="side">Aug &ndash; Dec 2024</div>
         <div>
-          <div class="t">Teaching Assistant</div>
-          <div class="who">LUMS Learning Institute</div>
-          <div class="d">Quantitative techniques module, Certificate in Health Professions Education. Trained practising health professionals in predictive analytics and exploratory data analysis.</div>
+          <div class="t">Teaching Assistant, Health Data Science module, LUMS Learning Institute</div>
+          <div class="d">Trained practising health professionals in predictive analytics and exploratory data analysis for the Certificate in Health Professions Education.</div>
         </div>
       </div>
     </section>
@@ -296,7 +333,7 @@ body.gm-open{overflow:hidden}
         <div class="side">2025 &ndash; present</div>
         <div>
           <div class="t">PhD, Computer Science</div>
-          <div class="who">University of Iowa</div>
+          <div class="who">University of Iowa &middot; Advisor: Rishab Nithyanand</div>
         </div>
       </div>
 
@@ -304,7 +341,8 @@ body.gm-open{overflow:hidden}
         <div class="side">2021 &ndash; 2025</div>
         <div>
           <div class="t">BSc, Computer Science, with Distinction</div>
-          <div class="who">LUMS &middot; Lahore, Pakistan</div>
+          <div class="who">Lahore University of Management Sciences &middot; Lahore, Pakistan</div>
+          <div class="d">Graduated with Distinction (2025). Dean's Honor List every year from 2021 to 2025, the top 10% of the batch. Mentored 12 first-year students as a Peer Ambassador for Social Support in the School of Science and Engineering.</div>
         </div>
       </div>
 
@@ -312,17 +350,10 @@ body.gm-open{overflow:hidden}
         <div class="side">Summer 2023</div>
         <div>
           <div class="t">Undergraduate Summer Semester</div>
-          <div class="who">Stanford University</div>
+          <div class="who">Stanford University &middot; Stanford, California<span class="find" data-find="education" title="Found one"></span></div>
+          <div class="d">Coursework in high-performance computing and in deception and technology. Adapted lecture materials for accessibility with the Office of Accessible Education.</div>
         </div>
       </div>
-    </section>
-
-    <section id="awards">
-      <h2>Awards</h2>
-      <ul style="margin-top:16px">
-        <li><b>Graduated with Distinction</b>, LUMS (2025)</li>
-        <li><b>Dean's Honor List</b>, LUMS (2021 &ndash; 2025), top 10% of the batch</li>
-      </ul>
     </section>
 
     <section id="contact">
@@ -331,29 +362,16 @@ body.gm-open{overflow:hidden}
       <p>Department of Computer Science, University of Iowa, Iowa City, IA.</p>
     </section>
 
+    <section id="unlocked" hidden>
+      <h2>You read the whole page</h2>
+      <p>All five found. Thank you for reading this far. If you email me, mention "five out of five" and I will know you actually got here, which counts for something.</p>
+    </section>
+
   </main>
 </div>
 
-<div id="gm-backdrop" hidden>
-  <div id="gm" role="dialog" aria-modal="true" aria-labelledby="gm-title">
-    <button id="gm-close" aria-label="Close game">&times;</button>
-    <h3 id="gm-title">Source Catch</h3>
-    <div class="tag">Catch reliable sources. Dodge the hallucinations.</div>
-    <div class="gm-hud">
-      <div>Score<b id="gm-score">0</b></div>
-      <div id="gm-lives" aria-label="lives"></div>
-      <div>Best<b id="gm-best">0</b></div>
-    </div>
-    <div class="gm-stage">
-      <canvas id="gm-canvas" width="240" height="320" tabindex="0" aria-label="Source Catch game"></canvas>
-      <div id="gm-msg"></div>
-    </div>
-    <div class="gm-help"><span><kbd>&larr;</kbd><kbd>&rarr;</kbd> or drag to move</span><span><kbd>esc</kbd> close</span></div>
-  </div>
-</div>
-
-<script src="sprite-data.js"></script>
-<script src="game.js"></script>
+<script src="sprite-data.js?v=3"></script>
+<script src="stage.js?v=2"></script>
 <script>
 /* Highlights the current section in the sidebar. The page is fully
    usable without this. */
@@ -372,4 +390,3 @@ body.gm-open{overflow:hidden}
 </script>
 </body>
 </html>
-
