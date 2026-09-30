@@ -59,20 +59,27 @@ nav a:hover{color:var(--rose-deep)}
 nav a.on{color:var(--rose-deep);font-weight:600}
 nav a.on::before{background:var(--rose-deep);width:14px}
 
-.stage-wrap{margin-top:22px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
-#stage{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges}
-.stage-bar{display:flex;justify-content:space-between;gap:8px;padding:6px 10px;font-size:11px;color:var(--faint);border-top:1px solid var(--line);background:var(--bg);letter-spacing:.2px}
-#stage-count{color:var(--rose-deep);font-weight:600;white-space:nowrap}
-.find{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin:0 2px;border-radius:3px;background:var(--tint);border:1px solid rgba(160,91,118,.35);cursor:pointer;position:relative;transition:transform .15s}
-.find::after{content:"";position:absolute;inset:3px;border-radius:2px;background:var(--rose)}
-.find:hover{transform:scale(1.25)}
-.find.got{background:var(--rose-deep);border-color:var(--rose-deep)}
-.find.got::after{inset:0;background:none;content:"\2713";color:#fff;font-size:10px;line-height:12px;text-align:center}
-.find.pop{animation:pop .35s ease-out}
-@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.6)}100%{transform:scale(1)}}
-/* chapters: roughly one screen each, gentle snapping */
-main section{min-height:78vh;scroll-margin-top:40px}
-main section#contact,main section#unlocked{min-height:0}
+/* game mode */
+.gm-toggle{margin-top:22px;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;
+  font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);cursor:pointer;font-family:inherit;transition:border-color .18s,color .18s}
+.gm-toggle::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--faint);transition:background .18s}
+.gm-toggle:hover{color:var(--rose-deep);border-color:var(--rose)}
+.gm-toggle.on{color:var(--rose-deep);border-color:var(--rose-deep);box-shadow:0 0 0 3px rgba(201,123,148,.18)}
+.gm-toggle.on::before{background:var(--rose-deep)}
+.gm-help{margin-top:10px;font-size:12.5px;color:var(--muted);line-height:1.7}
+.gm-help[hidden]{display:none}
+.gm-help kbd{font:inherit;font-size:11.5px;color:var(--rose-deep);border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-right:6px;background:#fff}
+#gm-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:30;display:none}
+body.gm-on #gm-canvas{display:block}
+#gm-count{position:fixed;top:14px;right:16px;z-index:31;display:none;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;
+  font-size:12px;color:var(--muted);letter-spacing:.4px}
+#gm-count::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--rose)}
+body.gm-on #gm-count{display:inline-flex}
+#gm-count b{color:var(--ink);font-weight:600}
+#gm-done{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:31;display:none;padding:10px 16px;border:1px solid var(--line);border-radius:10px;background:#fff;
+  font-size:13.5px;color:var(--ink);box-shadow:0 8px 30px rgba(51,34,42,.14)}
+#gm-done.show{display:block}
+@media(max-width:940px),(hover:none){.gm-toggle,.gm-help{display:none}}
 
 /* ---------- links ---------- */
 a{color:var(--rose-deep);text-decoration:none;border-bottom:1px solid rgba(160,91,118,.3)}
@@ -82,7 +89,7 @@ nav a,.contact a{border-bottom:0}
 .contact a:hover{border-bottom:1px solid var(--rose-deep)}
 
 /* ---------- main ---------- */
-main{min-width:0;max-width:760px;padding-bottom:38vh}
+main{min-width:0;max-width:760px}
 section{margin-bottom:52px;scroll-margin-top:40px}
 section:last-child{margin-bottom:0}
 h2{
@@ -147,11 +154,7 @@ ul li b{color:var(--ink);font-weight:600}
   aside{position:static;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--line)}
   aside img{width:120px;height:120px;margin-bottom:18px}
   nav{display:none}
-  main{max-width:none;padding-bottom:20vh}
-  .stage-wrap{position:fixed;right:10px;bottom:10px;width:118px;z-index:20;margin:0;box-shadow:0 6px 24px rgba(51,34,42,.18)}
-  .stage-bar{padding:4px 8px;font-size:10px}
-  .stage-bar span:first-child{display:none}
-  main section{min-height:0}
+  main{max-width:none}
 }
 @media(max-width:600px){
   .page{padding:32px 18px 60px}
@@ -186,6 +189,13 @@ ul li b{color:var(--ink);font-weight:600}
       <a href="https://www.linkedin.com/in/ushnamalik" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://orcid.org/0009-0009-3390-9302" target="_blank" rel="noopener">ORCID</a>
     </div>
+    <button class="gm-toggle" id="gm-toggle" type="button" aria-pressed="false">Game mode</button>
+    <div class="gm-help" id="gm-help" hidden>
+      <div><kbd>&larr; &rarr;</kbd> move</div>
+      <div><kbd>space</kbd> jump</div>
+      <div><kbd>scroll</kbd> explore</div>
+      <div>Collect the five scattered papers.</div>
+    </div>
     <nav>
       <a href="#about">About</a>
       <a href="#research">Research</a>
@@ -195,17 +205,13 @@ ul li b{color:var(--ink);font-weight:600}
       <a href="#education">Education</a>
       <a href="#contact">Contact</a>
     </nav>
-    <div class="stage-wrap" aria-hidden="true">
-      <canvas id="stage" width="146" height="110"></canvas>
-      <div class="stage-bar"><span>Five things are hidden in the text.</span><span id="stage-count">0 / 5 found</span></div>
-    </div>
   </aside>
 
   <main>
 
     <section id="about">
       <h2>About</h2>
-      <p class="lead">I am a PhD student in <a href="https://cs.uiowa.edu" target="_blank" rel="noopener">Computer Science at the University of Iowa</a>, advised by <a href="https://nithyanand.org/" target="_blank" rel="noopener">Rishab Nithyanand</a>. I study <b>AI intermediaries</b>: the chat assistants, AI-generated search answers, and writing assistants that now sit between people and information.<span class="find" data-find="about" title="Found one"></span> My work audits what these systems prioritise, frame, and rewrite before a person ever sees it, and measures what that does to judgment, decision-making, and identity.</p>
+      <p class="lead">I am a PhD student in <a href="https://cs.uiowa.edu" target="_blank" rel="noopener">Computer Science at the University of Iowa</a>, advised by <a href="https://nithyanand.org/" target="_blank" rel="noopener">Rishab Nithyanand</a>. I study <b>AI intermediaries</b>: the chat assistants, AI-generated search answers, and writing assistants that now sit between people and information. My work audits what these systems prioritise, frame, and rewrite before a person ever sees it, and measures what that does to judgment, decision-making, and identity.</p>
       <p>Before Iowa I completed a BSc in Computer Science, with Distinction, at the <a href="https://lums.edu.pk" target="_blank" rel="noopener">Lahore University of Management Sciences</a>, where I worked with <a href="https://web.lums.edu.pk/~ihsan/" target="_blank" rel="noopener">Ihsan Ayyub Qazi</a>, Ayesha Ali, and <a href="https://web.lums.edu.pk/~zafar/" target="_blank" rel="noopener">Zafar Ayyub Qazi</a> on how physicians use large language models and on AI-generated political persuasion. I spent the summer of 2023 at Stanford University.</p>
       <p class="interests">Research interests: human&ndash;AI interaction, AI-mediated search and communication, algorithmic auditing, computational social science.</p>
     </section>
@@ -216,7 +222,7 @@ ul li b{color:var(--ink);font-weight:600}
       <div class="theme">
         <div class="tag">Current &middot; with Rishab Nithyanand</div>
         <h3>AI intermediaries in information seeking</h3>
-        <p>Search engines are being replaced by systems that answer instead of retrieve. I am auditing how these AI intermediaries choose and frame their sources. We run controlled, repeated prompt sets across conventional web search and large language models, with and without retrieved documents,<span class="find" data-find="research" title="Found one"></span> on politically contested and health-related queries, and measure whether AI answers narrow or widen the gap between what different groups of people are shown.</p>
+        <p>Search engines are being replaced by systems that answer instead of retrieve. I am auditing how these AI intermediaries choose and frame their sources. We run controlled, repeated prompt sets across conventional web search and large language models, with and without retrieved documents, on politically contested and health-related queries, and measure whether AI answers narrow or widen the gap between what different groups of people are shown.</p>
       </div>
 
       <div class="theme">
@@ -279,7 +285,7 @@ ul li b{color:var(--ink);font-weight:600}
         </div>
       </div>
 
-      <p class="note">* Equal contribution.<span class="find" data-find="publications" title="Found one"></span></p>
+      <p class="note">* Equal contribution.</p>
     </section>
 
     <section id="news">
@@ -300,7 +306,7 @@ ul li b{color:var(--ink);font-weight:600}
         <div>
           <div class="t">Graduate Teaching Assistant, University of Iowa</div>
           <ul>
-            <li><b>CS 1110</b> Introduction to Computer Science (Fall 2025, Spring 2026)<span class="find" data-find="teaching" title="Found one"></span></li>
+            <li><b>CS 1110</b> Introduction to Computer Science (Fall 2025, Spring 2026)</li>
           </ul>
         </div>
       </div>
@@ -350,7 +356,7 @@ ul li b{color:var(--ink);font-weight:600}
         <div class="side">Summer 2023</div>
         <div>
           <div class="t">Undergraduate Summer Semester</div>
-          <div class="who">Stanford University &middot; Stanford, California<span class="find" data-find="education" title="Found one"></span></div>
+          <div class="who">Stanford University &middot; Stanford, California</div>
           <div class="d">Coursework in high-performance computing and in deception and technology. Adapted lecture materials for accessibility with the Office of Accessible Education.</div>
         </div>
       </div>
@@ -362,16 +368,15 @@ ul li b{color:var(--ink);font-weight:600}
       <p>Department of Computer Science, University of Iowa, Iowa City, IA.</p>
     </section>
 
-    <section id="unlocked" hidden>
-      <h2>You read the whole page</h2>
-      <p>All five found. Thank you for reading this far. If you email me, mention "five out of five" and I will know you actually got here, which counts for something.</p>
-    </section>
 
   </main>
 </div>
 
 <script src="sprite-data.js?v=3"></script>
-<script src="stage.js?v=2"></script>
+<canvas id="gm-canvas" aria-hidden="true"></canvas>
+<div id="gm-count" aria-live="polite"><b id="gm-n">0</b> / 5</div>
+<div id="gm-done">All five papers found. Email me and mention "five out of five", I will know you got here.</div>
+<script src="game.js?v=4"></script>
 <script>
 /* Highlights the current section in the sidebar. The page is fully
    usable without this. */

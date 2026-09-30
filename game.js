@@ -1,247 +1,134 @@
-/* Source Catch — a small arcade game for ushnamalikk.github.io.
-   Catch reliable sources, dodge AI hallucinations. Also animates the
-   pixel character in the sidebar. The page works fully without this file. */
+/* Game mode: a pixel version of me runs and jumps across the actual page.
+   Platforms are the rules under headings and rows; five papers are scattered
+   near the content. Off by default; the page is unchanged without it. */
 (function () {
   "use strict";
-  var SP = window.USHNA_SPRITE;
-  if (!SP) return;
+  var SP = window.USHNA_SPRITE, cv = document.getElementById("gm-canvas"), toggle = document.getElementById("gm-toggle");
+  if (!SP || !cv || !toggle) return;
+  var ctx = cv.getContext("2d"), help = document.getElementById("gm-help"),
+      countEl = document.getElementById("gm-n"), doneEl = document.getElementById("gm-done");
 
-  /* ---------- pixel drawing ---------- */
-  function drawGrid(ctx, grid, pal, x, y, s) {
-    for (var r = 0; r < grid.length; r++) {
-      var row = grid[r];
-      for (var c = 0; c < row.length; c++) {
-        var col = pal[row[c]];
-        if (col) { ctx.fillStyle = col; ctx.fillRect(x + c * s, y + r * s, s, s); }
-      }
+  /* sprite frames pre-rendered once at 1x, drawn scaled with smoothing off */
+  var S = 1.6, PW = SP.w, PH = SP.h, frames = {};
+  Object.keys(SP.frames).forEach(function (name) {
+    var c = document.createElement("canvas"); c.width = PW; c.height = PH; var x = c.getContext("2d");
+    var g = SP.frames[name];
+    for (var r = 0; r < g.length; r++) for (var q = 0; q < g[r].length; q++) {
+      var col = SP.palette[g[r][q]]; if (col) { x.fillStyle = col; x.fillRect(q, r, 1, 1); }
     }
-  }
-  var PAL = SP.palette;
-  var ITEM_PAL = {
-    K: "#33222A", W: "#ffffff", p: "#f3dfe5", R: "#C97B94", r: "#A05B76",
-    Y: "#f2c14e", y: "#d9a13a", G: "#e9b6c6", g: "#d48aa3", L: "#f7eef1"
-  };
-  var ITEMS = {
-    paper: { kind: "good", pts: 1, grid: [
-      "..KKKKKKK...",
-      "..KWWWWWKK..",
-      "..KWWWWWKWK.",
-      "..KWWWWWKKKK",
-      "..KWRRRWWWWK",
-      "..KWWWWWWWWK",
-      "..KWRRRRRWWK",
-      "..KWWWWWWWWK",
-      "..KWRRRRWWWK",
-      "..KWWWWWWWWK",
-      "..KWWWWWWWWK",
-      "..KKKKKKKKKK"] },
-    star: { kind: "bonus", pts: 3, grid: [
-      ".....KK.....",
-      ".....KYK....",
-      "....KYYYK...",
-      "KKKKKYYYKKKK",
-      "KYYYYYYYYYYK",
-      ".KYYYYYYYYK.",
-      "..KYYYYYYK..",
-      "..KYYYYYYK..",
-      ".KYYYKKYYYK.",
-      ".KYYK..KYYK.",
-      "KYYK....KYYK",
-      "KKK......KKK"] },
-    ghost: { kind: "bad", pts: 0, grid: [
-      "...KKKKKK...",
-      "..KGGGGGGK..",
-      ".KGGGGGGGGK.",
-      ".KGKKGGKKGK.",
-      ".KGKKGGKKGK.",
-      ".KGGGGGGGGK.",
-      ".KGGGKKGGGK.",
-      ".KGGKGGKGGK.",
-      ".KGGGGKGGGK.",
-      ".KGGGGGGGGK.",
-      ".KGKGGKGGKGK",
-      ".KKKKKKKKKK."] }
-  };
+    frames[name] = c;
+  });
+  var paper = (function () {
+    var g = ["KKKKKKKK", "KqqqqqqK", "KqPPPqqK", "KqqqqqqK", "KqPPPPqK", "KqqqqqqK", "KqPPPqqK", "KqqqqqqK", "KqqqqqqK", "KKKKKKKK"],
+        pal = { K: "#33222A", q: "#ffffff", P: "#C97B94" }, c = document.createElement("canvas"); c.width = 8; c.height = 10;
+    var x = c.getContext("2d");
+    for (var r = 0; r < g.length; r++) for (var q = 0; q < 8; q++) { x.fillStyle = pal[g[r][q]]; x.fillRect(q, r, 1, 1); }
+    return c;
+  })();
 
-  /* ---------- sidebar idle character ---------- */
-  var side = document.getElementById("pixel-me");
-  if (side) {
-    var sctx = side.getContext("2d"), S = 3;
-    side.width = SP.w * S; side.height = SP.h * S;
-    var frame = "idle", nextBlink = 2000 + Math.random() * 3000, t0 = performance.now(), hover = false;
-    side.addEventListener("mouseenter", function () { hover = true; });
-    side.addEventListener("mouseleave", function () { hover = false; });
-    (function loop(now) {
-      var dt = now - t0; t0 = now;
-      nextBlink -= dt;
-      if (hover) frame = (Math.floor(now / 300) % 2) ? "cheer" : "idle";
-      else if (nextBlink < 0) { frame = "blink"; if (nextBlink < -140) { frame = "idle"; nextBlink = 2500 + Math.random() * 3500; } }
-      else frame = "idle";
-      sctx.clearRect(0, 0, side.width, side.height);
-      drawGrid(sctx, SP.frames[frame], PAL, 0, 0, S);
-      requestAnimationFrame(loop);
-    })(t0);
+  var on = false, plats = [], items = [], found = 0, keys = {}, raf = 0, lastT = 0, dpr = 1, relayoutT = 0;
+  var p = { x: 0, y: 0, vx: 0, vy: 0, w: PW * S - 8, h: PH * S, ground: false, face: 1, walkT: 0, t: 0 };
+  var GRAV = 1900, SPEED = 190, JUMP = 600;
+
+  function docRect(el) { var r = el.getBoundingClientRect(); return { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width, h: r.height }; }
+
+  function layout() {
+    plats = []; var main = document.querySelector("main"), mr = docRect(main);
+    var els = main.querySelectorAll("h2, .row, .pub, .theme, .news li");
+    for (var i = 0; i < els.length; i++) { var r = docRect(els[i]); plats.push({ x: r.x, y: r.y + r.h, w: r.w }); }
+    plats.push({ x: mr.x - 40, y: mr.y + mr.h + 24, w: mr.w + 80, floor: true });
+    // walls: keep her inside the main column with a little slack
+    p.minX = mr.x - 30; p.maxX = mr.x + mr.w + 30 - p.w;
+    var anchors = ["#pub-chi26 .t", "#pub-cscw26 .t", "#pub-pnas .t", "#teaching .row .t", "#education .row .t"];
+    if (!items.length) anchors.forEach(function (sel, i) {
+      var el = document.querySelector(sel); if (!el) return; var r = docRect(el);
+      items.push({ x: r.x + r.w - 40 - (i % 2) * 60, y: r.y - 30, got: false, bob: i * 1.3 });
+    });
   }
 
-  /* ---------- game ---------- */
-  var card = document.getElementById("gm"),
-      cv = document.getElementById("gm-canvas");
-  if (!card || !cv) return;
-  var ctx = cv.getContext("2d");
-  var W = 240, H = 320, PS = 2;              // logical size, pixel scale
-  cv.width = W; cv.height = H;
-  var scoreEl = document.getElementById("gm-score"),
-      bestEl = document.getElementById("gm-best"),
-      livesEl = document.getElementById("gm-lives"),
-      msgEl = document.getElementById("gm-msg");
-
-  var BEST_KEY = "ushna-source-catch-best";
-  function getBest() { try { return +localStorage.getItem(BEST_KEY) || 0; } catch (e) { return 0; } }
-  function setBest(v) { try { localStorage.setItem(BEST_KEY, String(v)); } catch (e) {} }
-
-  var g = null, raf = 0, lastT = 0, keys = {}, pointerX = null;
-  var PW = SP.w * PS, PH = SP.h * PS, IW = 12 * PS;
-
-  function reset() {
-    g = { state: "ready", score: 0, lives: 3, best: getBest(),
-          px: (W - PW) / 2, items: [], spawnIn: 0.8, t: 0, face: "idle", faceT: 0,
-          walkT: 0, flash: 0, floats: [] };
-    hud();
-    say("Catch reliable sources.<br>Dodge the hallucinations.", "Press <b>space</b> or tap to start");
-  }
-  function hud() {
-    scoreEl.textContent = g.score;
-    bestEl.textContent = g.best;
-    var h = "";
-    for (var i = 0; i < 3; i++) h += '<span class="' + (i < g.lives ? "on" : "") + '">&#9829;</span>';
-    livesEl.innerHTML = h;
-  }
-  function say(big, small) {
-    msgEl.innerHTML = big ? '<div class="gm-big">' + big + '</div><div class="gm-small">' + (small || "") + '</div>' : "";
-    msgEl.style.display = big ? "flex" : "none";
-  }
   function start() {
-    if (g.state === "over") reset();
-    g.state = "playing"; say("");
-    lastT = performance.now();
-    cancelAnimationFrame(raf); raf = requestAnimationFrame(tick);
+    on = true; document.body.classList.add("gm-on"); toggle.classList.add("on"); toggle.setAttribute("aria-pressed", "true"); help.hidden = false;
+    resize(); layout();
+    var h2 = document.querySelector("main h2"), r = docRect(h2);
+    p.x = r.x + 16; p.y = r.y + r.h - p.h - 1; p.vx = p.vy = 0; p.face = 1;
+    lastT = performance.now(); cancelAnimationFrame(raf); raf = requestAnimationFrame(tick);
   }
-  function gameOver() {
-    g.state = "over";
-    var newBest = g.score > g.best;
-    if (newBest) { g.best = g.score; setBest(g.best); }
-    hud();
-    g.face = newBest ? "cheer" : "oops"; g.faceT = 99;
-    say((newBest ? "New best! " : "") + g.score + " reliable source" + (g.score === 1 ? "" : "s") + " found",
-        "Press <b>space</b> or tap to play again");
-    draw();
+  function stop() {
+    on = false; document.body.classList.remove("gm-on"); toggle.classList.remove("on"); toggle.setAttribute("aria-pressed", "false"); help.hidden = true;
+    doneEl.classList.remove("show"); keys = {}; cancelAnimationFrame(raf);
   }
-
-  function spawn() {
-    var r = Math.random(), type;
-    var badP = Math.min(0.45, 0.22 + g.score * 0.006);
-    if (r < badP) type = "ghost"; else if (r < badP + 0.08) type = "star"; else type = "paper";
-    g.items.push({ type: type, x: 4 + Math.random() * (W - IW - 8), y: -IW, wob: Math.random() * 6.28 });
+  function resize() {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.round(window.innerWidth * dpr); cv.height = Math.round(window.innerHeight * dpr);
   }
 
   function tick(now) {
-    var dt = Math.min(0.05, (now - lastT) / 1000); lastT = now;
-    if (g.state !== "playing") return;
-    g.t += dt;
-    var speed = 150;
-    var dir = 0;
-    if (keys.ArrowLeft || keys.a || keys.A) dir -= 1;
-    if (keys.ArrowRight || keys.d || keys.D) dir += 1;
-    if (pointerX !== null) {
-      var target = pointerX - PW / 2, d = target - g.px;
-      if (Math.abs(d) > 3) dir = d > 0 ? 1 : -1;
+    var dt = Math.min(0.04, (now - lastT) / 1000); lastT = now; p.t += dt;
+    relayoutT += dt; if (relayoutT > 0.5) { relayoutT = 0; layout(); }
+    var dir = (keys.ArrowRight || keys.d ? 1 : 0) - (keys.ArrowLeft || keys.a ? 1 : 0);
+    p.vx = dir * SPEED; if (dir) p.face = dir;
+    if ((keys[" "] || keys.ArrowUp || keys.w) && p.ground) { p.vy = -JUMP; p.ground = false; }
+    p.vy += GRAV * dt;
+    var oldBottom = p.y + p.h;
+    p.x = Math.max(p.minX, Math.min(p.maxX, p.x + p.vx * dt));
+    p.y += p.vy * dt;
+    p.ground = false;
+    if (p.vy >= 0) for (var i = 0; i < plats.length; i++) {
+      var pl = plats[i];
+      if (p.x + p.w > pl.x && p.x < pl.x + pl.w && oldBottom <= pl.y + 1 && p.y + p.h >= pl.y) { p.y = pl.y - p.h; p.vy = 0; p.ground = true; break; }
     }
-    g.px = Math.max(0, Math.min(W - PW, g.px + dir * speed * dt));
-    g.walkT = dir ? g.walkT + dt : 0;
-
-    g.spawnIn -= dt;
-    if (g.spawnIn <= 0) { spawn(); g.spawnIn = Math.max(0.42, 1.0 - g.score * 0.012); }
-
-    var fall = 55 + Math.min(120, g.score * 3.2);
-    var py = H - PH - 6;
-    for (var i = g.items.length - 1; i >= 0; i--) {
-      var it = g.items[i];
-      it.y += fall * dt * (it.type === "ghost" ? 0.9 : 1);
-      it.x += Math.sin(g.t * 3 + it.wob) * 12 * dt;
-      // collision with player's upper body
-      if (it.y + IW > py + 6 && it.y < py + PH - 10 && it.x + IW > g.px + 6 && it.x < g.px + PW - 6) {
-        var def = ITEMS[it.type];
-        if (def.kind === "bad") {
-          g.lives--; g.face = "oops"; g.faceT = 0.7; g.flash = 0.25;
-          g.floats.push({ x: it.x, y: it.y, txt: "?!", t: 0, col: "#A05B76" });
-          if (g.lives <= 0) { g.items.splice(i, 1); hud(); return gameOver(); }
-        } else {
-          g.score += def.pts; g.face = "cheer"; g.faceT = 0.35;
-          g.floats.push({ x: it.x, y: it.y, txt: "+" + def.pts, t: 0, col: def.kind === "bonus" ? "#d9a13a" : "#A05B76" });
-        }
-        g.items.splice(i, 1); hud(); continue;
+    if (p.vy > 900) p.vy = 900;
+    p.walkT = dir && p.ground ? p.walkT + dt : 0;
+    // papers
+    for (var k = 0; k < items.length; k++) {
+      var it = items[k]; if (it.got) continue;
+      var iy = it.y + Math.sin(p.t * 3 + it.bob) * 3;
+      if (p.x < it.x + 16 && p.x + p.w > it.x && p.y < iy + 20 && p.y + p.h > iy) {
+        it.got = true; found++; countEl.textContent = found;
+        if (found === items.length) doneEl.classList.add("show");
       }
-      if (it.y > H) g.items.splice(i, 1);
     }
-    for (var f = g.floats.length - 1; f >= 0; f--) { g.floats[f].t += dt; g.floats[f].y -= 30 * dt; if (g.floats[f].t > 0.8) g.floats.splice(f, 1); }
-    if (g.faceT > 0) { g.faceT -= dt; if (g.faceT <= 0) g.face = "idle"; }
-    if (g.flash > 0) g.flash -= dt;
+    // keep her on screen: the page follows her when she leaves the middle band
+    var top = window.scrollY, vh = window.innerHeight;
+    if (p.y < top + 90) window.scrollTo(0, p.y - 90);
+    else if (p.y + p.h > top + vh - 90) window.scrollTo(0, p.y + p.h - vh + 90);
     draw();
     raf = requestAnimationFrame(tick);
   }
 
   function draw() {
-    ctx.fillStyle = "#FAF0F2"; ctx.fillRect(0, 0, W, H);
-    // faint grid floor line
-    ctx.fillStyle = "rgba(51,34,42,.13)"; ctx.fillRect(0, H - 4, W, 1);
-    for (var i = 0; i < g.items.length; i++) {
-      var it = g.items[i];
-      drawGrid(ctx, ITEMS[it.type].grid, ITEM_PAL, Math.round(it.x), Math.round(it.y), PS);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.imageSmoothingEnabled = false;
+    var ox = -window.scrollX, oy = -window.scrollY;
+    ctx.fillStyle = "#C97B94";
+    for (var i = 0; i < plats.length; i++) {
+      var pl = plats[i], y = pl.y + oy; if (y < -4 || y > window.innerHeight + 4) continue;
+      ctx.fillRect(pl.x + ox, y, pl.w, pl.floor ? 3 : 2);
     }
-    var fr = g.face;
-    if (fr === "idle" && g.walkT > 0) fr = (Math.floor(g.walkT * 8) % 2) ? "walk1" : "walk2";
-    drawGrid(ctx, SP.frames[fr], PAL, Math.round(g.px), H - PH - 6, PS);
-    ctx.font = "bold 11px 'Avenir Next', Helvetica, Arial, sans-serif"; ctx.textAlign = "center";
-    for (var f = 0; f < g.floats.length; f++) {
-      var fl = g.floats[f]; ctx.globalAlpha = 1 - fl.t / 0.8; ctx.fillStyle = fl.col;
-      ctx.fillText(fl.txt, fl.x + IW / 2, fl.y); ctx.globalAlpha = 1;
+    for (var k = 0; k < items.length; k++) {
+      var it = items[k]; if (it.got) continue;
+      var iy = it.y + Math.sin(p.t * 3 + it.bob) * 3 + oy;
+      ctx.fillStyle = "rgba(201,123,148,.18)"; ctx.fillRect(it.x + ox - 4, iy - 4, 24, 28);
+      ctx.drawImage(paper, it.x + ox, iy, 16, 20);
     }
-    if (g.flash > 0) { ctx.fillStyle = "rgba(201,123,148," + (g.flash * 0.9) + ")"; ctx.fillRect(0, 0, W, H); }
+    var fr = !p.ground ? "walk1" : (p.walkT ? ((Math.floor(p.walkT * 9) % 2) ? "walk1" : "walk2") : "idle");
+    var sx = p.x + ox - 4, sy = p.y + oy;
+    ctx.fillStyle = "rgba(51,34,42,.10)"; ctx.fillRect(sx + 6, sy + p.h - 2, PW * S - 12, 3);
+    ctx.save();
+    if (p.face < 0) { ctx.translate(sx + PW * S, sy); ctx.scale(-1, 1); ctx.drawImage(frames[fr], 0, 0, PW * S, PH * S); }
+    else ctx.drawImage(frames[fr], sx, sy, PW * S, PH * S);
+    ctx.restore();
   }
 
-  /* ---------- open / close ---------- */
-  var backdrop = document.getElementById("gm-backdrop"), opener = document.querySelectorAll("[data-play]"), lastFocus = null;
-  function open() {
-    lastFocus = document.activeElement;
-    backdrop.hidden = false; document.body.classList.add("gm-open");
-    reset(); draw(); cv.focus();
-  }
-  function close() {
-    cancelAnimationFrame(raf); backdrop.hidden = true; document.body.classList.remove("gm-open");
-    if (g) g.state = "closed";
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-  for (var o = 0; o < opener.length; o++) opener[o].addEventListener("click", function (e) { e.preventDefault(); open(); });
-  document.getElementById("gm-close").addEventListener("click", close);
-  backdrop.addEventListener("click", function (e) { if (e.target === backdrop) close(); });
-
+  toggle.addEventListener("click", function () { on ? stop() : start(); });
+  var MOVE = { ArrowLeft: 1, ArrowRight: 1, ArrowUp: 1, " ": 1, a: 1, d: 1, w: 1 };
   document.addEventListener("keydown", function (e) {
-    if (backdrop.hidden) return;
-    if (e.key === "Escape") return close();
-    if (e.key === " " || e.code === "Space" || e.key === "Enter") { e.preventDefault(); if (g.state !== "playing") start(); return; }
-    if (e.key in { ArrowLeft: 1, ArrowRight: 1, a: 1, d: 1, A: 1, D: 1 }) { keys[e.key] = true; e.preventDefault(); }
+    if (!on) return;
+    if (e.key === "Escape") return stop();
+    var k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    if (MOVE[k]) { keys[k] = true; e.preventDefault(); }
   });
-  document.addEventListener("keyup", function (e) { delete keys[e.key]; });
-
-  function px(e) { var r = cv.getBoundingClientRect(); return (e.clientX - r.left) * (W / r.width); }
-  cv.addEventListener("pointerdown", function (e) {
-    e.preventDefault(); cv.setPointerCapture(e.pointerId);
-    if (g.state !== "playing") { start(); return; }
-    pointerX = px(e);
-  });
-  cv.addEventListener("pointermove", function (e) { if (pointerX !== null) pointerX = px(e); });
-  cv.addEventListener("pointerup", function () { pointerX = null; });
-  cv.addEventListener("pointercancel", function () { pointerX = null; });
-  msgEl.addEventListener("pointerdown", function (e) { e.preventDefault(); if (g.state !== "playing") start(); });
-  document.addEventListener("visibilitychange", function () { if (document.hidden && g && g.state === "playing") { g.state = "ready"; say("Paused", "Press <b>space</b> or tap to resume"); } });
+  document.addEventListener("keyup", function (e) { var k = e.key.length === 1 ? e.key.toLowerCase() : e.key; delete keys[k]; });
+  window.addEventListener("resize", function () { if (on) { resize(); layout(); } });
 })();
