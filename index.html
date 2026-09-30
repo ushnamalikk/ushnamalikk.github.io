@@ -184,17 +184,8 @@ ul li b{color:var(--ink);font-weight:600}
     <div class="contact">
       <a href="mailto:mushna@uiowa.edu">mushna@uiowa.edu</a>
       <a href="Ushna-Malik-CV.pdf" target="_blank" rel="noopener">Curriculum Vitae</a>
-      <a href="https://www.semanticscholar.org/author/2176019548" target="_blank" rel="noopener">Semantic Scholar</a>
       <a href="https://github.com/ushnamalikk" target="_blank" rel="noopener">GitHub</a>
       <a href="https://www.linkedin.com/in/ushnamalik" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://orcid.org/0009-0009-3390-9302" target="_blank" rel="noopener">ORCID</a>
-    </div>
-    <button class="gm-toggle" id="gm-toggle" type="button" aria-pressed="false">Game mode</button>
-    <div class="gm-help" id="gm-help" hidden>
-      <div><kbd>&larr; &rarr;</kbd> move</div>
-      <div><kbd>space</kbd> jump</div>
-      <div><kbd>scroll</kbd> explore</div>
-      <div>Collect the five scattered papers.</div>
     </div>
     <nav>
       <a href="#about">About</a>
@@ -209,94 +200,106 @@ ul li b{color:var(--ink);font-weight:600}
 
   <main>
 
-    <section id="about">
-      <h2>About</h2>
-      <p class="lead">I am a PhD student in <a href="https://cs.uiowa.edu" target="_blank" rel="noopener">Computer Science at the University of Iowa</a>, advised by <a href="https://nithyanand.org/" target="_blank" rel="noopener">Rishab Nithyanand</a>. I study <b>AI intermediaries</b>: the chat assistants, AI-generated search answers, and writing assistants that now sit between people and information. My work audits what these systems prioritise, frame, and rewrite before a person ever sees it, and measures what that does to judgment, decision-making, and identity.</p>
-      <p>Before Iowa I completed a BSc in Computer Science, with Distinction, at the <a href="https://lums.edu.pk" target="_blank" rel="noopener">Lahore University of Management Sciences</a>, where I worked with <a href="https://web.lums.edu.pk/~ihsan/" target="_blank" rel="noopener">Ihsan Ayyub Qazi</a>, Ayesha Ali, and <a href="https://web.lums.edu.pk/~zafar/" target="_blank" rel="noopener">Zafar Ayyub Qazi</a> on how physicians use large language models and on AI-generated political persuasion. I spent the summer of 2023 at Stanford University.</p>
-      <p class="interests">Research interests: human&ndash;AI interaction, AI-mediated search and communication, algorithmic auditing, computational social science.</p>
-    </section>
+<section id="about">
+  <h2>About</h2>
+  <p class="lead">I’m a PhD student in <a href="https://cs.uiowa.edu" target="_blank" rel="noopener">Computer Science at the University of Iowa</a>, advised by <a href="https://nithyanand.org/" target="_blank" rel="noopener">Rishab Nithyanand</a>. My research examines how AI-mediated systems influence human communication, information seeking, and decision-making. I study how interacting with generative AI affects what people express, what information they encounter and rely on, and how they form judgments and make decisions. My work draws on Human-Computer Interaction and Computational Social Science.</p>
+  <p class="interests">Research interests: human&ndash;AI interaction, AI-mediated search and communication, algorithmic auditing, computational social science.</p>
+</section>
 
     <section id="research">
       <h2>Research</h2>
 
-      <div class="theme">
-        <div class="tag">Current &middot; with Rishab Nithyanand</div>
-        <h3>AI intermediaries in information seeking</h3>
-        <p>Search engines are being replaced by systems that answer instead of retrieve. I am auditing how these AI intermediaries choose and frame their sources. We run controlled, repeated prompt sets across conventional web search and large language models, with and without retrieved documents, on politically contested and health-related queries, and measure whether AI answers narrow or widen the gap between what different groups of people are shown.</p>
-      </div>
+        <div class="theme">
+    <div class="tag">AI-mediated information seeking</div>
+    <h3>How generative AI shapes access to information</h3>
+    <p>Generative systems increasingly mediate information seeking by synthesising answers rather than presenting users with a ranked set of sources. I study how this changes the information people encounter. My current work compares conventional web search, large language models, and retrieval-augmented generation to examine differences in source selection, information coverage, and framing across politically contested and health-related queries.</p>
+  </div>
 
-      <div class="theme">
-        <div class="tag">Clinical AI &middot; Lahore University of Management Sciences</div>
-        <h3>How physicians use large language models in low-resource settings</h3>
-        <p>In Pakistan, where the physician shortage is acute, I led a mixed-methods study of how 19 practising physicians used ChatGPT-4o while solving six expert-designed diagnostic vignettes, combining every interaction log, graded diagnostic reasoning, and 12 interviews (<a href="#pub-chi26">CHI 2026</a>). As a research assistant I also contributed to two randomised trials of LLM diagnostic assistance, including one (N = 44) testing whether AI-literacy training protects physicians from automation bias when the model's suggestion is wrong (Nature Health 2026; NEJM AI 2026).</p>
-      </div>
 
-      <div class="theme">
-        <div class="tag">AI-mediated communication</div>
-        <h3>Authorship, persuasion, and the assistant in the middle</h3>
-        <p>When an AI assistant rewrites a message, is the author still recognisable? With Moiz Sadiq Awan I introduced the <b>Idiolect Erasure Rate</b>, the drop in authorship-attribution accuracy after AI rewriting, and showed that heavy rewriting removes most of the recoverable authorship signal in personal and workplace writing (<a href="#pub-cscw26">CSCW 2026 workshop</a>). Earlier, I led a randomised experiment (N = 197) on whether LLM-generated, microtargeted political videos shift opinions in a Global South setting (in preparation for PNAS Nexus).</p>
-      </div>
-    </section>
+        <div class="theme">
+    <div class="tag">AI-mediated information seeking</div>
+    <h3>How generative AI shapes access to information</h3>
+    <p>Generative systems increasingly mediate information seeking by synthesising answers rather than presenting users with a ranked set of sources. I study how this changes the information people encounter. My current work compares conventional web search, large language models, and retrieval-augmented generation to examine differences in source selection, information coverage, and framing across politically contested and health-related queries.</p>
+  </div>
+
+
+        <div class="theme">
+    <div class="tag">Clinical AI</div>
+    <h3>Reliance on AI in clinical decision-making</h3>
+    <p>I study how physicians evaluate and rely on AI-generated recommendations during clinical decision-making. As a research assistant, I contributed to two randomised studies of LLM-assisted diagnosis, including a study of 44 physicians examining whether AI-literacy training helps physicians identify and correct erroneous model recommendations and reduces automation bias (<a href="https://doi.org/10.1038/s44360-025-00007-8" target="_blank" rel="noopener">Nature Health, 2026</a>; <a href="https://ai.nejm.org/doi/abs/10.1056/AIoa2501001" target="_blank" rel="noopener">NEJM AI, 2026</a>).</p>
+  </div>
+</section>
+
 
     <section id="publications">
       <h2>Publications</h2>
 
-      <div class="pub" id="pub-chi26">
-        <div class="fig"><img src="figs/chi26-physicians.jpg" alt="Study design: 19 physicians solved six vignettes with ChatGPT-4o; logs, graded reasoning, and 12 interviews were analysed." /></div>
-        <div>
-          <div class="t">Prompting, Oversight, and Adoption: Physicians' Use of Large Language Models for Diagnostic Reasoning in an LMIC</div>
-          <div class="who"><b>Ushna Malik</b>*, Laiba Intizar Ahmad*, Amna Hassan, Izzah Shafique, Eilya Mohsin, Ayesha Ali, Muhammad Hamad Alizai, Ihsan Ayyub Qazi</div>
-          <div class="venue">Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems (CHI '26), Article 146, 19 pages<span class="badge">Open access</span></div>
-          <div class="d">Mixed-methods study of 19 practising physicians in Pakistan who solved six expert-designed clinical vignettes with optional access to ChatGPT-4o. We analysed every interaction log, had three licensed physicians grade the diagnostic reasoning, and interviewed 12 participants.</div>
-          <ul>
-            <li>Physicians used <b>four prompting strategies</b>: authority assertion (role assignment, scaffolding), workflow structuring, clinical reasoning (validation versus reliance), and iterative refinement.</li>
-            <li><b>Context completeness mattered most.</b> Pasting the full case into the model reached 62.5% diagnostic accuracy, against 39.1% for manually summarised prompts.</li>
-            <li><b>42% drifted</b> from cautious scaffolding to direct queries over the session, yet every participant kept verifying the model's output through adversarial prompts and stepwise control.</li>
-            <li>Junior physicians relied on structured scaffolding; seniors cross-checked opportunistically. Interviews framed the model as a "second brain" tempered by concerns about reliability, privacy, and patient trust.</li>
-          </ul>
-          <div class="r"><a href="https://doi.org/10.1145/3772318.3791761" target="_blank" rel="noopener">Paper</a><a href="https://dl.acm.org/doi/10.1145/3772318.3791761" target="_blank" rel="noopener">ACM DL</a></div>
-        </div>
+        <div class="pub" id="pub-chi26">
+    <div class="fig">
+      <img src="figs/chi26-physicians.jpg" alt="Study design: 19 physicians solved six vignettes with ChatGPT-4o; logs, graded reasoning, and 12 interviews were analysed." />
+    </div>
+    <div>
+      <div class="t">Prompting, Oversight, and Adoption: Physicians' Use of Large Language Models for Diagnostic Reasoning in an LMIC</div>
+      <div class="who"><b>Ushna Malik</b>*, Laiba Intizar Ahmad*, Amna Hassan, Izzah Shafique, Eilya Mohsin, Ayesha Ali, Muhammad Hamad Alizai, Ihsan Ayyub Qazi</div>
+      <div class="venue">Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems (CHI '26), Article 146, 19 pages<span class="badge">Open access</span></div>
+      <div class="d">Mixed-methods study of 19 practising physicians in Pakistan who solved six expert-designed clinical vignettes with optional access to ChatGPT-4o. We analysed every interaction log, had three licensed physicians grade the diagnostic reasoning, and interviewed 12 participants.</div>
+      <ul>
+        <li>Physicians used <b>four prompting strategies</b>: authority assertion (role assignment, scaffolding), workflow structuring, clinical reasoning (validation versus reliance), and iterative refinement.</li>
+        <li><b>Context completeness mattered most.</b> Pasting the full case into the model reached 62.5% diagnostic accuracy, compared with 39.1% for manually summarised prompts.</li>
+        <li><b>42% drifted</b> from cautious scaffolding to direct queries over the session, yet every participant continued verifying the model's output through adversarial prompts and stepwise control.</li>
+        <li>Junior physicians relied on structured scaffolding; senior physicians cross-checked opportunistically. Interviews framed the model as a "second brain," tempered by concerns about reliability, privacy, and patient trust.</li>
+      </ul>
+      <div class="r">
+        <a href="https://doi.org/10.1145/3772318.3791761" target="_blank" rel="noopener">Paper</a>
+        <a href="https://dl.acm.org/doi/10.1145/3772318.3791761" target="_blank" rel="noopener">ACM DL</a>
       </div>
+    </div>
+  </div>
 
-      <div class="pub" id="pub-cscw26">
-        <div class="fig"><img src="figs/cscw26-ier.png" alt="Bar chart: heavy AI rewriting erases 66.5 points of deep authorship attribution on blogs and 52.5 on email, but almost none on news." /></div>
-        <div>
-          <div class="t">The Assistant Erased You: Measuring Loss of Authorship Signals in AI-Mediated Communication</div>
-          <div class="who"><b>Ushna Malik</b>, Moiz Sadiq Awan</div>
-          <div class="venue"><a href="https://broader-impacts-workshop.github.io/cscw2026-website/" target="_blank" rel="noopener">Workshop on the Broader Impacts of Generative AI in Communication</a>, CSCW 2026<span class="badge">Paper talk</span></div>
-          <div class="d">Introduces the <b>Idiolect Erasure Rate</b> (IER): the percentage-point drop in authorship-attribution accuracy after an AI assistant rewrites a message. Evaluated on three pre-generative-AI corpora (50 bloggers, 20 Enron email users, 25 Reuters journalists) with a stylometric SVM and the LUAR neural attributer, under light, heavy, and "preserve my voice" rewriting.</div>
-          <ul>
-            <li>Heavy rewriting cut LUAR attribution by <b>66.5 points on personal blogs</b> and <b>52.5 on workplace email</b>, more than three quarters of the recoverable authorship signal.</li>
-            <li>On beat-structured news the deep attributer barely moved (+1.0, not significant): topic stood in for identity.</li>
-            <li>Even prompts that explicitly instruct the assistant to preserve the author's voice removed most of the signal.</li>
-            <li><b>Double erasure:</b> heavily rewritten messages also evade AI-text detectors, so they can neither be attributed to their author nor identified as AI-assisted.</li>
-          </ul>
-          <div class="r"><a href="https://broader-impacts-workshop.github.io/cscw2026-website/papers/the-assistant-erased-you-measuring-loss-of-authorship.pdf" target="_blank" rel="noopener">Paper</a><a href="https://github.com/ushnamalikk/idiolect-erasure-rate" target="_blank" rel="noopener">Code and data</a></div>
-        </div>
-      </div>
 
-      <div class="pub" id="pub-pnas">
-        <div class="fig"><div class="ph">In preparation</div></div>
-        <div>
-          <div class="t">AI-Generated Multimodal Political Persuasion Campaigns</div>
-          <div class="who"><b>Ushna Malik</b>, with Ihsan Ayyub Qazi and Ayesha Ali</div>
-          <div class="venue">In preparation for PNAS Nexus</div>
-          <div class="d">A randomised controlled experiment (N = 197) in a Global South setting measuring whether LLM-generated, microtargeted political videos, produced with generative text, voice, and video tools, shift participants' opinions. The results speak to the debate over AI-enabled influence operations and what platform safeguards would need to detect.</div>
-        </div>
+        <div class="pub" id="pub-cscw26">
+    <div class="fig">
+      <img src="figs/cscw26-ier.png" alt="Bar chart: heavy AI rewriting erases 66.5 points of deep authorship attribution on blogs and 52.5 on email, but almost none on news." />
+    </div>
+    <div>
+      <div class="t">The Assistant Erased You: Measuring Loss of Authorship Signals in AI-Mediated Communication</div>
+      <div class="who"><b>Ushna Malik</b>, Moiz Sadiq Awan</div>
+      <div class="venue"><a href="https://broader-impacts-workshop.github.io/cscw2026-website/" target="_blank" rel="noopener">Workshop on the Broader Impacts of Generative AI in Communication</a>, CSCW 2026<span class="badge">Paper talk</span></div>
+      <div class="d">Introduces the <b>Idiolect Erasure Rate</b> (IER): the percentage-point drop in authorship-attribution accuracy after an AI assistant rewrites a message. We evaluate IER on three pre-generative-AI corpora (50 bloggers, 20 Enron email users, and 25 Reuters journalists) using a stylometric SVM and the LUAR neural attributer under light, heavy, and "preserve my voice" rewriting.</div>
+      <ul>
+        <li>Heavy rewriting reduced LUAR attribution accuracy by <b>66.5 points on personal blogs</b> and <b>52.5 points on workplace email</b>, removing more than three quarters of the recoverable authorship signal.</li>
+        <li>On beat-structured news, the deep attributer barely changed (+1.0, not significant), suggesting that topic can serve as a strong signal for identity.</li>
+        <li>Even prompts explicitly instructing the assistant to preserve the author's voice removed most of the recoverable authorship signal.</li>
+        <li><b>Double erasure:</b> heavily rewritten messages also evade AI-text detectors, making them difficult both to attribute to their original author and to identify as AI-assisted.</li>
+      </ul>
+      <div class="r">
+        <a href="https://broader-impacts-workshop.github.io/cscw2026-website/papers/the-assistant-erased-you-measuring-loss-of-authorship.pdf" target="_blank" rel="noopener">Paper</a>
+        <a href="https://github.com/ushnamalikk/idiolect-erasure-rate" target="_blank" rel="noopener">Code and data</a>
       </div>
+    </div>
+  </div>
 
       <p class="note">* Equal contribution.</p>
     </section>
 
     <section id="news">
-      <h2>News</h2>
-      <ul class="news">
-        <li><span class="when">September 2026</span><span>"The Assistant Erased You" was accepted at the CSCW 2026 Workshop on the Broader Impacts of Generative AI in Communication. I will give a paper talk and a lightning talk.</span></li>
-        <li><span class="when">April 2026</span><span>Our paper on physicians' use of large language models for diagnostic reasoning appeared at <a href="https://chi2026.acm.org" target="_blank" rel="noopener">CHI 2026</a> in Barcelona.</span></li>
-        <li><span class="when">August 2025</span><span>Started my PhD in Computer Science at the University of Iowa, advised by Rishab Nithyanand.</span></li>
-        <li><span class="when">May 2025</span><span>Graduated with Distinction from the Lahore University of Management Sciences, after four consecutive years on the Dean's Honor List.</span></li>
+  <h2>News</h2>
+  <ul class="news">
+    <li><span class="when">September 2026</span><span>Passed my PhD qualifying exam at the University of Iowa.</span></li>
+<li><span class="when">August 2026</span><span>"The Assistant Erased You" was accepted at the CSCW 2026 Workshop on the Broader Impacts of Generative AI in Communication, where I will give a paper talk and a lightning talk.</span></li>
+
+<li><span class="when">2026</span><span>I will be a student volunteer at CSEW.</span></li>
+
+<li><span class="when">April 2026</span><span>Presented our work on physicians' use of large language models for diagnostic reasoning at <a href="https://chi2026.acm.org" target="_blank" rel="noopener">CHI 2026</a> in Barcelona.</span></li>
+
+<li><span class="when">2026</span><span>Our paper, "Prompting, Oversight, and Adoption: Physicians' Use of Large Language Models for Diagnostic Reasoning in an LMIC," was accepted to <a href="https://chi2026.acm.org" target="_blank" rel="noopener">CHI 2026</a>.</span></li>
+
+<li><span class="when">August 2025</span><span>Started my PhD in Computer Science at the University of Iowa, advised by Rishab Nithyanand.</span></li>
+
+<li><span class="when">May 2025</span><span>Graduated with Distinction from the Lahore University of Management Sciences after four consecutive years on the Dean's Honor List.</span></li>
       </ul>
-    </section>
+</section>
+
 
     <section id="teaching">
       <h2>Teaching</h2>
@@ -306,7 +309,7 @@ ul li b{color:var(--ink);font-weight:600}
         <div>
           <div class="t">Graduate Teaching Assistant, University of Iowa</div>
           <ul>
-            <li><b>CS 1110</b> Introduction to Computer Science (Fall 2025, Spring 2026)</li>
+            <li><b>CS 1110</b> Introduction to Computer Science (Fall 2025, Spring & Fall 2026)</li>
           </ul>
         </div>
       </div>
@@ -332,35 +335,32 @@ ul li b{color:var(--ink);font-weight:600}
       </div>
     </section>
 
-    <section id="education">
-      <h2>Education</h2>
+<section id="education">
 
-      <div class="row">
-        <div class="side">2025 &ndash; present</div>
-        <div>
-          <div class="t">PhD, Computer Science</div>
-          <div class="who">University of Iowa &middot; Advisor: Rishab Nithyanand</div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="side">2021 &ndash; 2025</div>
-        <div>
-          <div class="t">BSc, Computer Science, with Distinction</div>
-          <div class="who">Lahore University of Management Sciences &middot; Lahore, Pakistan</div>
-          <div class="d">Graduated with Distinction (2025). Dean's Honor List every year from 2021 to 2025, the top 10% of the batch. Mentored 12 first-year students as a Peer Ambassador for Social Support in the School of Science and Engineering.</div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="side">Summer 2023</div>
-        <div>
-          <div class="t">Undergraduate Summer Semester</div>
-          <div class="who">Stanford University &middot; Stanford, California</div>
-          <div class="d">Coursework in high-performance computing and in deception and technology. Adapted lecture materials for accessibility with the Office of Accessible Education.</div>
-        </div>
-      </div>
-    </section>
+  <h2>Education</h2>
+    <div class="row">
+    <div class="side">2025 &ndash; present</div>
+    <div>
+      <div class="t">PhD in Computer Science</div>
+      <div class="who">University of Iowa &middot; Advisor: Rishab Nithyanand</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="side">2021 &ndash; 2025</div>
+    <div>
+      <div class="t">BSc in Computer Science, with Distinction</div>
+      <div class="who">Lahore University of Management Sciences &middot; Lahore, Pakistan</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="side">Summer 2023</div>
+    <div>
+      <div class="t">Stanford Summer Session</div>
+      <div class="who">Stanford University &middot; Stanford, California</div>
+      <div class="d">Coursework in High Performance Computing, Deception and Technology, and Technology Entrepreneurship.</div>
+    </div>
+  </div>
+</section>
 
     <section id="contact">
       <h2>Contact</h2>
