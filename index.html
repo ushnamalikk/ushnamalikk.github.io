@@ -97,12 +97,43 @@ ul li b{color:var(--ink);font-weight:600}
 
 .note{color:var(--faint);font-size:13px;margin-top:16px;font-style:italic}
 
+/* ---------- pixel character + game ---------- */
+.pixel-wrap{display:flex;align-items:flex-end;gap:12px;margin-top:20px}
+#pixel-me{image-rendering:pixelated;image-rendering:crisp-edges;width:60px;height:84px;cursor:pointer;flex:none}
+.play{font-size:13px;color:var(--rose-deep);border-bottom:0;line-height:1.4}
+.play b{display:block;font-weight:600}
+.play span{color:var(--faint);font-size:12px}
+.play:hover b{border-bottom:1px solid var(--rose-deep)}
+body.gm-open{overflow:hidden}
+#gm-backdrop{position:fixed;inset:0;z-index:50;background:rgba(51,34,42,.42);display:flex;align-items:center;justify-content:center;padding:16px}
+#gm-backdrop[hidden]{display:none}
+#gm{background:var(--bg);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 60px rgba(51,34,42,.28);
+  padding:16px 18px 14px;width:100%;max-width:312px;position:relative}
+#gm h3{font-size:15px;font-weight:600;color:var(--rose-deep);letter-spacing:-.2px}
+#gm .tag{font-size:12px;color:var(--muted);margin-top:2px}
+#gm-close{position:absolute;top:10px;right:12px;width:28px;height:28px;border:0;background:none;color:var(--faint);
+  font-size:20px;line-height:1;cursor:pointer;border-radius:50%}
+#gm-close:hover{color:var(--rose-deep);background:rgba(201,123,148,.14)}
+.gm-hud{display:flex;justify-content:space-between;align-items:center;margin:12px 0 8px;font-size:12px;color:var(--muted);letter-spacing:.3px}
+.gm-hud b{color:var(--ink);font-weight:600;font-size:14px;margin-left:4px}
+#gm-lives span{color:rgba(51,34,42,.14);font-size:15px;margin-left:2px}
+#gm-lives span.on{color:var(--rose)}
+.gm-stage{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg)}
+#gm-canvas{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges;touch-action:none;outline:0}
+#gm-msg{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:20px;background:rgba(250,240,242,.78);cursor:pointer}
+.gm-big{font-size:16px;font-weight:600;color:var(--ink);line-height:1.35}
+.gm-small{font-size:12.5px;color:var(--muted);margin-top:8px}
+.gm-help{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint);margin-top:10px}
+.gm-help kbd{font:inherit;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-right:2px}
+
 /* ---------- responsive ---------- */
 @media(max-width:940px){
   .page{grid-template-columns:1fr;gap:0;padding:40px 24px 72px;max-width:760px}
   aside{position:static;margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--line)}
   aside img{width:120px;height:120px;margin-bottom:18px}
   nav{display:none}
+  .pixel-wrap{margin-top:16px}
   main{max-width:none}
 }
 @media(max-width:560px){
@@ -134,6 +165,10 @@ ul li b{color:var(--ink);font-weight:600}
       <a href="https://www.linkedin.com/in/ushnamalik" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://orcid.org/0009-0009-3390-9302" target="_blank" rel="noopener">ORCID</a>
       <a href="Ushna-Malik-CV.pdf">Curriculum Vitae</a>
+    </div>
+    <div class="pixel-wrap">
+      <canvas id="pixel-me" width="60" height="84" data-play aria-label="Pixel Ushna. Click to play Source Catch." role="button" tabindex="0"></canvas>
+      <a href="#" class="play" data-play><b>Play Source Catch</b><span>a 30-second break</span></a>
     </div>
     <nav>
       <a href="#about">About</a>
@@ -299,6 +334,26 @@ ul li b{color:var(--ink);font-weight:600}
   </main>
 </div>
 
+<div id="gm-backdrop" hidden>
+  <div id="gm" role="dialog" aria-modal="true" aria-labelledby="gm-title">
+    <button id="gm-close" aria-label="Close game">&times;</button>
+    <h3 id="gm-title">Source Catch</h3>
+    <div class="tag">Catch reliable sources. Dodge the hallucinations.</div>
+    <div class="gm-hud">
+      <div>Score<b id="gm-score">0</b></div>
+      <div id="gm-lives" aria-label="lives"></div>
+      <div>Best<b id="gm-best">0</b></div>
+    </div>
+    <div class="gm-stage">
+      <canvas id="gm-canvas" width="240" height="320" tabindex="0" aria-label="Source Catch game"></canvas>
+      <div id="gm-msg"></div>
+    </div>
+    <div class="gm-help"><span><kbd>&larr;</kbd><kbd>&rarr;</kbd> or drag to move</span><span><kbd>esc</kbd> close</span></div>
+  </div>
+</div>
+
+<script src="sprite-data.js"></script>
+<script src="game.js"></script>
 <script>
 /* Highlights the current section in the sidebar. The page is fully
    usable without this. */
