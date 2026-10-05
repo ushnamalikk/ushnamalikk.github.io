@@ -27,7 +27,7 @@ def page(title, active, body, desc="", brand=True):
   <link rel="stylesheet" href="assets/css/tailwind.css?v={VER}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Ysabeau:500,700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Ysabeau:500,700|Playfair+Display:600&display=swap">
   <link rel="stylesheet" href="assets/css/main.css?v={VER}">
   <script src="assets/js/theme.js?v={VER}"></script>
 </head>
@@ -246,6 +246,10 @@ css+="""/* --- site additions --- */
 
 /* cross-browser text: no automatic hyphenation, left-aligned prose */
 .post p,.post li,.post td,.paper-card .abstract-body{text-align:left !important;-webkit-hyphens:manual !important;hyphens:manual !important}
+
+/* the name: Playfair Display on the About heading and the nav brand only */
+.post-title .font-weight-bold,.navbar-brand,.navbar-brand .font-weight-bold{font-family:"Playfair Display",Georgia,serif !important;font-weight:600 !important;letter-spacing:-.01em}
+.navbar-brand{font-size:1.25rem}
 
 /* section dividers */
 h2.section{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--global-divider-color);margin-bottom:1.1rem}
