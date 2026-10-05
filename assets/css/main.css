@@ -6,8 +6,12 @@
 .news td{padding:.45rem 0;border-top:1px solid var(--global-divider-color);vertical-align:top}
 .news tr:first-child th,.news tr:first-child td{border-top:none}
 .news-scroll{max-height:13.5rem;overflow-y:auto;padding-right:.75rem;scrollbar-width:thin;scrollbar-color:var(--global-divider-color) transparent}
-.news-scroll::-webkit-scrollbar{width:6px}
+.news-scroll::-webkit-scrollbar{width:6px;background:transparent}
+.news-scroll::-webkit-scrollbar-track{background:transparent}
 .news-scroll::-webkit-scrollbar-thumb{background:var(--global-divider-color);border-radius:3px}
+
+/* cross-browser text: no automatic hyphenation, left-aligned prose */
+.post p,.post li,.post td,.paper-card .abstract-body{text-align:left !important;-webkit-hyphens:manual !important;hyphens:manual !important}
 
 /* section dividers */
 h2.section{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--global-divider-color);margin-bottom:1.1rem}
