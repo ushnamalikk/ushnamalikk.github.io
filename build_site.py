@@ -276,9 +276,9 @@ html details.paper-card[open] .abs-hint::after{content:"Summary ▴" !important}
 
 /* teaching & service */
 .teach-card{padding:1rem 1.4rem}
-.teach-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.25rem .75rem;margin-bottom:.5rem}
-.teach-inst{font-weight:700}
-.teach-role{color:var(--global-theme-color);font-size:.9rem;font-weight:500}
+.teach-head{display:flex;flex-wrap:nowrap;align-items:baseline;justify-content:space-between;gap:.25rem 1rem;margin-bottom:.5rem}
+.teach-inst{font-weight:700;flex:1 1 auto;min-width:0}
+.teach-role{color:var(--global-theme-color);font-size:.9rem;font-weight:500;flex:0 1 auto;max-width:48%;text-align:right}
 .teach-list{list-style:none;margin:0;padding:0}
 .teach-list li{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35rem .5rem;padding:.35rem 0;border-top:1px solid var(--global-divider-color)}
 .teach-list li:first-child{border-top:none}
